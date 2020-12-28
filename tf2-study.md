@@ -1,3 +1,5 @@
+
+
 # 第一章
 ## 1、数据操作
 ### 1、创建tensor：     
@@ -261,3 +263,211 @@ tf.keras.layers.Dense(1,kernel_regularizer=regularizers.l2(wd),bias_regularizer=
 ##### 2、反向传播沿着从输出层到输入层的顺序，依次计算并存储神经网络中间变量和参数的梯度。
 ###### 3、在训练深度学习模型时，正向传播和反向传播相互依赖。
 ###### 4、深度模型有关数值稳定性的典型问题是衰减和爆炸。当神经网络的层数较多时，模型的数值稳定性容易变差。
+# 深度学习计算
+## 1、模型构建方法
+```python
+model = keras.Sequential([
+    keras.layers.Flatten(input_shape = (28, 28)),
+    keras.layers.Dense(256, activation = 'relu'),
+    Dropout(0.2),
+    keras.layers.Dense(256, activation = 'relu'),
+    Dropout(0.5),
+    keras.layers.Dense(19, activation = tf.nn.softmax)])
+model.compile(optimizer=optimizer,
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+net.fit(train_images, train_labels, epochs=5, validation_split=0.1)
+```
+```python
+class MLP(tf.keras.Model):
+    def __init__(self):
+        super().__init__()
+        self.flatten = tf.keras.layers.Flatten() 
+        self.dense1 = tf.keras.layers.Dense(units=256, activation=tf.nn.relu)
+        self.dense2 = tf.keras.layers.Dense(units=10)
+
+    def call(self, inputs):         
+        x = self.flatten(inputs)   
+        x = self.dense1(x)    
+        output = self.dense2(x)     
+        return output
+```
+```python
+# 其中有常随机权重
+class FancyMLP(tf.keras.Model):
+    def __init__(self):
+        super().__init__()
+        self.flatten = tf.keras.layers.Flatten()
+        self.rand_weight = tf.constant(
+            tf.random.uniform((20,20)))
+        self.dense = tf.keras.layers.Dense(units=20, activation=tf.nn.relu)
+
+    def call(self, inputs):         
+        x = self.flatten(inputs)   
+        x = tf.nn.relu(tf.matmul(x, self.rand_weight) + 1)
+        x = self.dense(x)    
+        while tf.norm(x) > 1:
+            x /= 2
+        if tf.norm(x) < 0.8:
+            x *= 10
+        return tf.reduce_sum(x)
+
+class NestMLP(tf.keras.Model):
+    def __init__(self):
+        super().__init__()
+        self.net = tf.keras.Sequential()
+        self.net.add(tf.keras.layers.Flatten())
+        self.net.add(tf.keras.layers.Dense(64, activation=tf.nn.relu))
+        self.net.add(tf.keras.layers.Dense(32, activation=tf.nn.relu))
+        self.dense = tf.keras.layers.Dense(units=16, activation=tf.nn.relu)
+
+
+    def call(self, inputs):         
+        return self.dense(self.net(inputs))
+# 嵌套。。。
+net = tf.keras.Sequential()
+net.add(NestMLP())
+net.add(tf.keras.layers.Dense(20))
+net.add(FancyMLP())
+net(X)
+```
+## 2、模型参数的访问、初始化和共享
+### 1、模型参数访问
+net.weights[0] | type(net.weights[0])
+net.get_weights()
+for layer in net.layers:
+net.get_layer(index=1).gamma伸缩参数|.beta偏移参数
+
+### 2、初始化
+默认初始化方法为权重参数元素为[-0.07,0.07]之间均匀分布的随机数，初始化权值在定义层时实现
+tf.keras.layers.Dense(
+            kernel_initializer=tf.random_normal_initializer(mean=0,stddev=0.01),
+            bias_initializer=tf.zeros_initializer()
+        )
+也可以使用tf.keras.initializers自定义初始化
+```python
+def my_init():
+    return tf.keras.initializers.Ones()
+
+model = tf.keras.models.Sequential()
+model.add(tf.keras.layers.Dense(64, kernel_initializer=my_init()))
+```
+## 3、自定义层
+```python
+class myDense(tf.keras.layers.Layer):
+    def __init__(self, units):
+        super().__init__()
+        self.units = units
+
+    def build(self, input_shape):     # 这里 input_shape 是第一次运行call()时参数inputs的形状
+        self.w = self.add_weight(name='w',
+            shape=[input_shape[-1], self.units], initializer=tf.random_normal_initializer())
+        self.b = self.add_weight(name='b',
+            shape=[self.units], initializer=tf.zeros_initializer())
+
+    def call(self, inputs):
+        y_pred = tf.matmul(inputs, self.w) + self.b
+        return y_pred
+```
+build() 可自定义网络的权重的维度，可以根据输入来指定权重的维度，若权重固定(如自定义网络层的权重随机分布形式，这时把权重定义写在init即可），可避免使用build() 方法
+self.built = True，该参数在build() 运行开始时为False，为了保证先调用build() 方法, 再调用call() 方法，结束时会自动赋值为True，保证build() 方法**只被调用一次**
+call()函数实现前向传播的逻辑功能。返回该层输出值，不包含激活函数计算
+## 4、读取和存储
+tensor数据可以用numpy的save和load进行存储和读取
+网络模型的参数可用net.save_weight('save_model.h5)保存
+## 获取能够计算的cpu和gpu设备
+```python
+gpus = tf.config.experimental.list_physical_devices(device_type='GPU')
+cpus = tf.config.experimental.list_physical_devices(device_type='CPU')
+print("可用的GPU：",gpus,"\n可用的CPU：", cpus)
+# 使用tf.device()来指定特定设备(GPU/CPU)
+with tf.device('GPU:0'):
+    a = tf.constant([1,2,3],dtype=tf.float32)
+    b = tf.random.uniform((3,))
+    print(tf.exp(a + b) * 2)
+
+# **********************************
+# 采用GPU训练并设置memory_growth
+tf.config.experimental.list_physical_devices('GPU') #确认TensorFlow正在使用GPU。
+for gpu in tf.config.experimental.list_physical_devices('GPU'):
+    tf.config.experimental.set_memory_growth(gpu, True) #自适应
+    tf.config.experimental.VirtualDeviceConfiguration(memory_limit=2048) #最大值
+# 
+tensor.device
+```
+# 卷积神经网络
+卷积层，功能：填充、步幅
+池化层，功能：窗口形状|大小、步幅、填充
+注意多通道输入和输出
+## 1、自定义VGG块（重复利用
+```python
+conv_arch = ((1, 64), (1, 128), (2, 256), (2, 512), (2, 512))
+def vgg_block(num_convs, num_channels):
+    blk = tf.keras.models.Sequential()
+    for _ in range(num_convs):
+        blk.add(tf.keras.layers.Conv2D(num_channels,kernel_size=3, padding='same',activation='relu'))
+    blk.add(tf.keras.layers.MaxPool2D(pool_size=2, strides=2))
+    return blk
+def vgg(conv_arch):
+    net = tf.keras.models.Sequential()
+    for (num_convs, num_channels) in conv_arch:
+        net.add(vgg_block(num_convs,num_channels))
+    net.add(tf.keras.models.Sequential([tf.keras.layers.Flatten(),
+             tf.keras.layers.Dense(4096,activation='relu'),
+             tf.keras.layers.Dropout(0.5),
+             tf.keras.layers.Dense(4096,activation='relu'),
+             tf.keras.layers.Dropout(0.5),
+             tf.keras.layers.Dense(10,activation='sigmoid')]))
+    return net
+```
+**上图定义的多卷积+池化层的方法可以参考、重复使用**
+```python
+def train_vgg():
+#     net.load_weights("5.7_vgg_weights.h5")
+    epoch = 5
+    num_iter = dataLoader.num_train//batch_size
+    for e in range(epoch):
+        for n in range(num_iter):
+            x_batch, y_batch = dataLoader.get_batch_train(batch_size)
+            net.fit(x_batch, y_batch)
+            if n%20 == 0:
+                net.save_weights("5.7_vgg_weights.h5")
+
+optimizer = tf.keras.optimizers.SGD(learning_rate=0.05, momentum=0.0, nesterov=False)
+
+net.compile(optimizer=optimizer,
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+x_batch, y_batch = dataLoader.get_batch_train(batch_size)
+net.fit(x_batch, y_batch)
+# train_vgg()
+```
+## 2、用1*1卷积层代替全连接层
+全连接层后因为维度关系无法接上卷积层，，为了传递空间信息，可使用1*1卷积层达到以上两个目的，同时降低参数复杂度。
+注意，此时学习率应随之小幅度增加
+###### 卷积核数据和大小要分清楚！，卷积核数目与输出通道数有关
+## 3、并行连接网络
+Inception块：
+![inception](inception.svg)
+##### 1、Inception块相当于一个有4条线路的子网络。它通过不同窗口形状的卷积层和最大池化层来并行抽取信息，并使用1×11×1卷积层减少通道数从而降低模型复杂度。
+##### 2、GoogLeNet将多个设计精细的Inception块和其他层串联起来。其中Inception块的通道数分配之比是在ImageNet数据集上通过大量的实验得来的。
+##### 3、GoogLeNet和它的后继者们一度是ImageNet上最高效的模型之一：在类似的测试精度下，它们的计算复杂度往往更低。[详情点击](https://blog.csdn.net/weixin_44211398/article/details/94298169)
+## 4、批量归一化
+```python
+#tf.keras.layers.BatchNormalization()
+net = tf.keras.models.Sequential(
+    [tf.keras.layers.Conv2D(filters=6,kernel_size=5),
+    BatchNormalization(),
+    tf.keras.layers.Activation('sigmoid'))
+```
+使用批量归一化时，可以将批量大小设得大一点，从而使批量内样本的均值和方差的计算都较为准确。
+测试时，因为单个样本的输出不应取决于批量归一化所需要的随机小批量中的均值和方差。一种常见的方法是通过移动平均估算整个训练数据集的样本均值和方差，并在预测时使用它们得到确定的输出。
+
+解决方法：：
+如果待预测数据量比较大，直接调用 model(test) 进行预测就行了，这样就使用训练模式，会直接从待预测数据计算其对应的均值和方差。
+tf.keras.backend.set_learning_phase(True) # predict mode
+
+如果是单个数据或数据分布差异不大，就需要保存BN 层的参数，特别是移动均值和方差，然后直接预测(model.predict)。
+
+具体使用时一般情况下将Batch_Normalization层加一参数，is_training = FLAG_TRAIN。当遇到使用批量归一化层且测试集效果比训练集效果差太多时，点击[参考1]和[参考2]进行深入探究
