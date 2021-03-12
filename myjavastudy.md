@@ -95,57 +95,76 @@
   - [13.4. 继承中构造方法的访问特点](#134-继承中构造方法的访问特点)
   - [13.5. 继承中成员方法的访问特点](#135-继承中成员方法的访问特点)
   - [13.6. super内存图](#136-super内存图)
-  - [方法重写](#方法重写)
-    - [方法重写的注意事项](#方法重写的注意事项)
-  - [Java中继承的注意事项](#java中继承的注意事项)
-- [包](#包)
-  - [导包](#导包)
-  - [权限修饰符](#权限修饰符)
-  - [状态修饰符](#状态修饰符)
-- [多态](#多态)
-  - [多态中成员的访问特点](#多态中成员的访问特点)
-  - [多态的好处和弊端](#多态的好处和弊端)
-  - [多态中的转型](#多态中的转型)
-  - [多态转型的内存图解](#多态转型的内存图解)
-- [抽象类](#抽象类)
-  - [抽象类的特点](#抽象类的特点)
-  - [抽象类的成员特点](#抽象类的成员特点)
-- [接口](#接口)
-  - [接口的特点](#接口的特点)
-  - [接口的成员特点](#接口的成员特点)
-  - [猫和狗，接口版本](#猫和狗接口版本)
-  - [类和接口关系](#类和接口关系)
-  - [抽象类和接口区别](#抽象类和接口区别)
-- [形参和返回值](#形参和返回值)
-- [类名作为形参和返回值](#类名作为形参和返回值)
+  - [13.7. 方法重写](#137-方法重写)
+    - [13.7.1. 方法重写的注意事项](#1371-方法重写的注意事项)
+  - [13.8. Java中继承的注意事项](#138-java中继承的注意事项)
+- [14. 包](#14-包)
+  - [14.1. 导包](#141-导包)
+  - [14.2. 权限修饰符](#142-权限修饰符)
+  - [14.3. 状态修饰符](#143-状态修饰符)
+- [15. 多态](#15-多态)
+  - [15.1. 多态中成员的访问特点](#151-多态中成员的访问特点)
+  - [15.2. 多态的好处和弊端](#152-多态的好处和弊端)
+  - [15.3. 多态中的转型](#153-多态中的转型)
+  - [15.4. 多态转型的内存图解](#154-多态转型的内存图解)
+- [16. 抽象类](#16-抽象类)
+  - [16.1. 抽象类的特点](#161-抽象类的特点)
+  - [16.2. 抽象类的成员特点](#162-抽象类的成员特点)
+- [17. 接口](#17-接口)
+  - [17.1. 接口的特点](#171-接口的特点)
+  - [17.2. 接口的成员特点](#172-接口的成员特点)
+  - [17.3. 猫和狗，接口版本](#173-猫和狗接口版本)
+  - [17.4. 类和接口关系](#174-类和接口关系)
+  - [17.5. 抽象类和接口区别](#175-抽象类和接口区别)
+- [18. 形参和返回值](#18-形参和返回值)
+- [19. 类名作为形参和返回值](#19-类名作为形参和返回值)
   - [抽象类名作为形参和返回值](#抽象类名作为形参和返回值)
   - [接口名作为形参和返回值](#接口名作为形参和返回值)
 - [内部类](#内部类)
   - [成员内部类](#成员内部类)
-  - [局部内部类](#局部内部类)
-  - [匿名内部类](#匿名内部类)
-    - [匿名内部类在开发中的使用](#匿名内部类在开发中的使用)
-- [常用api](#常用api)
-  - [Math](#math)
-  - [System](#system)
-  - [Object类](#object类)
-  - [ToString方法](#tostring方法)
-  - [equals方法](#equals方法)
-  - [Array](#array)
-    - [冒泡排序](#冒泡排序)
-    - [Interger](#interger)
-      - [基本类型包装类](#基本类型包装类)
-      - [Interger类的概述和使用](#interger类的概述和使用)
-      - [int和String的相互转换](#int和string的相互转换)
-  - [基本类型包装类](#基本类型包装类-1)
-    - [自动装箱和拆箱](#自动装箱和拆箱)
-  - [日期类](#日期类)
-    - [Data类概述和构造方法](#data类概述和构造方法)
-    - [Data类的常用方法](#data类的常用方法)
-    - [SimpleDateFormat类](#simpledateformat类)
-    - [日期工具类](#日期工具类)
-      - [Calendar类描述](#calendar类描述)
-      - [Calendar的常用方法](#calendar的常用方法)
+  - [19.1. 局部内部类](#191-局部内部类)
+  - [19.2. 匿名内部类](#192-匿名内部类)
+    - [19.2.1. 匿名内部类在开发中的使用](#1921-匿名内部类在开发中的使用)
+- [20. 常用api](#20-常用api)
+  - [20.1. Math](#201-math)
+  - [20.2. System](#202-system)
+  - [20.3. Object类](#203-object类)
+  - [20.4. ToString方法](#204-tostring方法)
+  - [20.5. equals方法](#205-equals方法)
+  - [20.6. Array](#206-array)
+    - [20.6.1. 冒泡排序](#2061-冒泡排序)
+    - [20.6.2. Interger](#2062-interger)
+      - [20.6.2.1. 基本类型包装类](#20621-基本类型包装类)
+      - [20.6.2.2. Interger类的概述和使用](#20622-interger类的概述和使用)
+      - [20.6.2.3. int和String的相互转换](#20623-int和string的相互转换)
+  - [20.7. 基本类型包装类](#207-基本类型包装类)
+    - [20.7.1. 自动装箱和拆箱](#2071-自动装箱和拆箱)
+  - [20.8. 日期类](#208-日期类)
+    - [20.8.1. Data类概述和构造方法](#2081-data类概述和构造方法)
+    - [20.8.2. Data类的常用方法](#2082-data类的常用方法)
+    - [20.8.3. SimpleDateFormat类](#2083-simpledateformat类)
+    - [20.8.4. 日期工具类](#2084-日期工具类)
+      - [20.8.4.1. Calendar类描述](#20841-calendar类描述)
+      - [20.8.4.2. Calendar的常用方法](#20842-calendar的常用方法)
+- [21. 异常](#21-异常)
+  - [21.1. 异常描述](#211-异常描述)
+  - [21.2. JVM的默认处理方案](#212-jvm的默认处理方案)
+  - [21.3. 异常处理](#213-异常处理)
+  - [21.4. Throwabl的成员方法  e.](#214-throwabl的成员方法--e)
+  - [21.5. 编译时异常和运行时异常的区别](#215-编译时异常和运行时异常的区别)
+  - [21.6. 自定义异常](#216-自定义异常)
+    - [21.6.1. throws和throw的区别](#2161-throws和throw的区别)
+- [22. 集合进阶](#22-集合进阶)
+  - [22.1. Collection](#221-collection)
+    - [22.1.1. 集合类体系结构](#2211-集合类体系结构)
+    - [22.1.2. Collection集合概述和使用](#2212-collection集合概述和使用)
+    - [22.1.3. Collection集合常用方法](#2213-collection集合常用方法)
+    - [22.1.4. Collection集合的遍历](#2214-collection集合的遍历)
+    - [22.1.5. 集合的使用步骤](#2215-集合的使用步骤)
+  - [22.2. List](#222-list)
+    - [List集合概述和特点](#list集合概述和特点)
+    - [List集合特有的方法](#list集合特有的方法)
+    - [并发修改异常](#并发修改异常)
 
 <!-- /TOC -->
 # 1. 前置教程
@@ -679,28 +698,28 @@ public class Zi extends Fu{}
 成员方法首先在子类中找，再在父类中找，再找不到就报错
 ## 13.6. super内存图
 子类在堆内存中创建地址后，除了加载本身的成员百变量，还会拓展出一个super空间用来存储父类的成员变量
-## 方法重写
+## 13.7. 方法重写
 重写描述：子类中出现了和父类一摸一样的方法声明
 方法重写的引用：
 * 当子类需要父类的功能，而功能你如果主体子类有自己特有内容时，可以重写父类中的方法，这样，即沿袭了父类的功能，又定义了子类特有的内容
 在子类中重写父类方法，并使用super.方法()继承父类方法，在重写时使用```@Override```注解进行检查重写方法声明的正确性
-### 方法重写的注意事项
+### 13.7.1. 方法重写的注意事项
 * 父类中public权限的方法能被子类调用重写，而private权限的方法不能被子类调用重写
 * 访问权限为：  
 private<默认<protected<public
-## Java中继承的注意事项
+## 13.8. Java中继承的注意事项
 * Java中类只支持单继承，不支持多继承
 * Java中类支持多层继承
 * super只能在子类中使用，
-# 包
+# 14. 包
 包就是文件夹，作用是对类进行分类管理
 编译时自动创建包
 javac -d. helloworld.java
 java 包的路径.helloworld
 
-## 导包
+## 14.1. 导包
 import com.company.Teacher;
-## 权限修饰符
+## 14.2. 权限修饰符
 |修饰符|同一个类|同一个类中子类无关类|不同包的子类|不同包的无关类|
 |:---|:---|:---|:---|:---|
 |private|√||||
@@ -708,7 +727,7 @@ import com.company.Teacher;
 |protected|√|√|√||
 |public|√|√|√|√|
 
-## 状态修饰符
+## 14.3. 状态修饰符
 final：最终态。可以修饰成员方法，成员变量、类
 fianl修饰的方法不能被重写
 final修饰的值是常量，不能再次被赋值
@@ -729,7 +748,7 @@ s1.university = "北京大学";
 静态成员方法
 * 只可以访问静态的成员变量和方法
 
-# 多态
+# 15. 多态
 同一个对象，在不同时刻表现出来的不同形态  
 举例：猫  
 可以说猫是猫，即猫 cat = new 猫()  
@@ -739,17 +758,17 @@ s1.university = "北京大学";
 * 有方法重写
 * 有父类引用指向子类对象
 
-## 多态中成员的访问特点
+## 15.1. 多态中成员的访问特点
 成员变量：编译看左边，执行看左边  
 成员方法：编译看左边，执行看右边  
 因为成员方法有重写，而成员变量没有重写
-## 多态的好处和弊端
+## 15.2. 多态的好处和弊端
 
 好处：提高了程序的扩展性，定义方法的时候，使用父类作为参考，将来在使用的时候，使用具体的子类型参与操作  
 继承父类，所以能够使用父类的方法
 弊端：不能使用子类的特有功能  
 
-## 多态中的转型
+## 15.3. 多态中的转型
 * 向上转型   
   从子到父
   父类引用指向子类对象
@@ -762,27 +781,27 @@ Animal a = new Cat;
 Cat c = (Cat) a;
 ```
 通过强制类型转化弥补多态弊端，达到访问子类特有功能的目的。强制类型转换能够进行的原因，是因为a指向的堆内存中的数据块就是Cat类型的，所以能够强制转换。
-## 多态转型的内存图解
+## 15.4. 多态转型的内存图解
 
-# 抽象类
+# 16. 抽象类
 抽象类描述
 在Java中，一个没有方法体的方法应该定义为抽象方法，而类中如果有抽象方法，该类必须定义为抽象类  
 定义抽象类的方法：  
 将类和方法加上前缀：abstract
-## 抽象类的特点
+## 16.1. 抽象类的特点
 * 抽象类和抽象方法都要用abstract修饰
 * 抽象类可以没有抽象方法，但抽象方法一定在抽象类里面
 * 抽象子类如果继承重写，必须要继承重写抽象父类中的所有抽象方法
 * 抽象类的子类不想重写，则继承Animal中的抽象方法，所以该子类也应该是抽象类
-## 抽象类的成员特点
+## 16.2. 抽象类的成员特点
 * 成员变量可以是变量，也可以是常量
 * 有构造方法，但是不能实例化
 * 构造方法的作用是用于子类访问父类数据的初始化
 * 成员方法可以有抽象方法，限定子类必须完成某些动作；也可以有非抽象方法，提高代码复用性  
-# 接口
+# 17. 接口
 接口是一种公共的规范标准，只要符合规范，大家都可以通用
 Java中的接口更多的体现在对行为的抽象
-## 接口的特点
+## 17.1. 接口的特点
 * 接口用关键字interface修饰，即```public interface 接口名{}```
 * 类实现接口用implements表示，```public class 类名 implements 接口名{}```
 * 接口不能实例化，但可以参照多态的方式，通过实现类对象实例化，即接口多态  
@@ -792,24 +811,24 @@ Java中的接口更多的体现在对行为的抽象
   要么重写接口所有的抽象类
   要么是抽象类，但其子类仍需要重写所有对象类
 
-## 接口的成员特点
+## 17.2. 接口的成员特点
 * 成员变量只能是常量，即默认被 public static final修饰
 * 接口没有构造方法，因为接口主要是对行为进行抽象的，是没有具体存在  
   一个类如果没有父类，默认继承自Object类
 * 成员方法只能是抽象方法，默认修饰符是Public abstract  
   关于接口中的方法，JDK8和JDK9中有一些新特性  
 
-## 猫和狗，接口版本
+## 17.3. 猫和狗，接口版本
 * 接口只能调用接口方法，抽象类只能调用抽象类方法
 * 在使用时使用具体的子类，因为它具有最多的方法，即接口方法和抽象父类方法  
-## 类和接口关系
+## 17.4. 类和接口关系
 * 类和类的关系
   继承关系，只能单继承，也可以多层继承
 * 类和接口关系
   实现关系，可以单实现，也可以在继承一个类的同时实现多个接口  
 * 接口和接口的关系
   继承关系，可以单继承，也可以多继承  
-## 抽象类和接口区别
+## 17.5. 抽象类和接口区别
 * 成员区别
   抽象类：变量，常量；有构造方法，有抽象方法，也有非抽象方法
   接口：常量，抽象方法
@@ -822,8 +841,8 @@ Java中的接口更多的体现在对行为的抽象
   接口：对行为抽象，主要是行为
 比如门的开open，关close动作，和新加入的报警alarm动作，所有的门都有开和关，只有一部分有报警功能  
 做法是将门的开和关作为一个抽象类，alarm作为一个接口，设计一个新的子类:alarmdoor,它继承自抽象类并导入了接口alarm
-# 形参和返回值
-# 类名作为形参和返回值
+# 18. 形参和返回值
+# 19. 类名作为形参和返回值
 方法的形参是类名，其实需要的是该类的对象  ```useCat(Cat c)```  
 方法的返回值是类名，其实返回的是该类的对象
  ```java
@@ -862,19 +881,19 @@ public class Ceshi {
 
 ```Outer.Inner oi = new Outer().new Inner();```  
 或者在成员内部类外进行调用，利用外部类创建方法进行隐式调用  
-## 局部内部类
+## 19.1. 局部内部类
 定义：在类内的方法中定义一个类，这个类不能直接被访问，需要在该方法中创建该局部内部类的对象，进而访问局部内部类对象。  
 特点：局部内部类能够访问在它之上的所有变量，包括成员变量和局部变量。  
-## 匿名内部类
+## 19.2. 匿名内部类
 前提：存在一个类或者接口，这里的类可以是具体类也可以是抽象类  
 本质：一个继承了该类或者实现了该接口的子类匿名对象，既然是对象，就可以调用方法，也可以赋值给该类或者实现了的接口。  
  
-### 匿名内部类在开发中的使用
+### 19.2.1. 匿名内部类在开发中的使用
 记：编译看左边，执行看右边
 
 使用匿名内部类，其本质是继承了该类，或者是实现了该接口的子类的匿名对象，省去了新建类继承父类或者实现接口的子类java文件。  
-# 常用api
-## Math
+# 20. 常用api
+## 20.1. Math
 * 方法重载
 * 包含数字运算方法，不需要创建Math对象  
 * 没有构造方法，如果类的成员是静态的，可以直接通过类名来调用
@@ -891,27 +910,27 @@ public class Ceshi {
 |double pow(double a,double b)|返回a的b次幂|
 |double random()|返回值为double的正值随机数，[0.0,1.0)|  
 
-## System
+## 20.2. System
 
 |方法名|说明|
 |:---|:---|
 |System.currentTimeMillis()|返回当前时间，毫秒为单位|
 |System.exit(int status)|终止当前运行的虚拟机，非0表示异常，0表示正常|
-## Object类
+## 20.3. Object类
 子类的构造方法默认访问的都是父类的无参构造方法。因为它们的顶级父类只有无参构造方法。  
-## ToString方法
+## 20.4. ToString方法
 sout默认输出s.ToString()
 建议所有子类重写该方法，自动生成
-## equals方法
+## 20.5. equals方法
 默认比较地址。重写方法可比较内容，自动生成
-## Array
-### 冒泡排序
-### Interger
+## 20.6. Array
+### 20.6.1. 冒泡排序
+### 20.6.2. Interger
 Interger.MIN_VALUE;int范围最小值
 Interger.MAX_VALUE;int范围最大值
 
 Interger是最终类，还提供了几种将String和int相互转换的方法，以及其他常量和方法在处理int时非常有用
-#### 基本类型包装类
+#### 20.6.2.1. 基本类型包装类
 |基本数据类型|包装类|
 |:---|:---|
 |byte|Byte|
@@ -923,13 +942,13 @@ Interger是最终类，还提供了几种将String和int相互转换的方法，
 |char|Character|
 |boolean|Boolean|
 
-#### Interger类的概述和使用
+#### 20.6.2.2. Interger类的概述和使用
 获得指定int值的Interger实例，使用：
 ```java
 Interger i1 = Interger.valueOf(100);
 Interger i2 = Interger.valueOf("100");
 ```
-#### int和String的相互转换
+#### 20.6.2.3. int和String的相互转换
 //int转String
 String s1 = ""+number;
 
@@ -942,8 +961,8 @@ int y = Integer.parseInt(s);//静态方法的方式
 
 * ValueOf返回的是integer的包装类型（对象），底层使用的也是parseInt
 * parseInt返回的是int基本类型
-## 基本类型包装类
-### 自动装箱和拆箱
+## 20.7. 基本类型包装类
+### 20.7.1. 自动装箱和拆箱
 装箱：把基本数据类型转换为对应的包装类类型
 拆箱：把包装类类型转换为对应的基本数据类型
 ```java
@@ -956,21 +975,21 @@ ii += 200;//自动拆、装箱
 ```
 在开发中，如果是引用类型的变量，首先应判断是否是null，然后在进行计算操作。  
 只要是对象，在操作前都要进行不为null判断。  
-## 日期类
-### Data类概述和构造方法
+## 20.8. 日期类
+### 20.8.1. Data类概述和构造方法
 Data代表了一个特定的时间，精确到毫秒  
 |方法名|说明|
 |:---|:---|
 |Data()|分配一个Data对象，并初始化，以便它代表它被分配的时间，精确到毫秒|
 |Data(long Data)|分配一个Data对象，并将其初始化为表示从标准基准时间起指定的毫秒数|
 
-### Data类的常用方法
+### 20.8.2. Data类的常用方法
 |方法名|说明|
 |:---|:---|
 |long getTime()|获取的是日期对象从1970年1月1日00:00:00到现在的毫秒值|
 |void setTime(long time)|设置时间，给的是毫秒值|
 
-### SimpleDateFormat类
+### 20.8.3. SimpleDateFormat类
 SimpleDateFormat是一个具体的类，用于以区域设置敏感的方式格式化和解析日期。  
 日期和时间格式由日期和时间模式字符串指定，在日期和时间模式字符串中，从'A'到'Z'，以及从'a'到'z'引导的字母被解释为表示日期或时间字符串的组件的模式字母。  
 常用的为：
@@ -982,6 +1001,7 @@ SimpleDateFormat是一个具体的类，用于以区域设置敏感的方式格�
 * s  秒
 
 格式化和解析日期：
+
 ```java
 final format(Date data);//格式化，从Date到String，将日期格式化成日期/时间字符串
 Date d4 = new Date();
@@ -993,9 +1013,10 @@ String ss = "2022-02-11 11:11:11";
 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 Date dd = sdf2.parse(ss);
 ```
-### 日期工具类
+
+### 20.8.4. 日期工具类
 * 工具类：构造方法私有，成员方法静态
-#### Calendar类描述
+#### 20.8.4.1. Calendar类描述
 Calendar为某一时刻和一组日历字段之间的转换提供了一些方法，并为操作日历字段提供了一些方法。  
 Calendar提供了一个类方法getInstance用于获取Calendar对象，其日历字段已使用当前日期和时间初始化’
 Calendar c = Calendar.getInstance();  
@@ -1003,7 +1024,7 @@ c.get(Calendar.YEAR)
 c.get(Calendar.MONTH)+1
 c.get(Calendar.DATE)  
 **注意，获得的月份从0开始！**
-#### Calendar的常用方法
+#### 20.8.4.2. Calendar的常用方法
 
 |方法名|说明|
 |:---|:---|
@@ -1011,3 +1032,231 @@ c.get(Calendar.DATE)
 |abstract void add(int field,int amount)|根据日历规则，将指定的时间量增加或减少给定的日历字段|
 |final void set(int year,int month,int date)|设置当前日历的年月日|
 
+# 21. 异常
+## 21.1. 异常描述
+Trowbale是所有异常的超类，下面有Error和Exception两个子类
+* Error问题一般是严重问题，无法用程序解决，如内存溢出
+* Exception类包括非RuntimeException类和RuntimeException，表示程序本身可以处理的问题
+* * RuntimeException类时在Java虚拟机的正常操作期间可以抛出的异常的超类。**称为运行时异常**
+* * 非RuntimeException：编译时就必须处理的，否则程序编译不通过，更不能正常运行
+## 21.2. JVM的默认处理方案
+* 把异常名称，异常原因和异常出现的位置等信息输出在了控制台
+* 程序停止执行
+## 21.3. 异常处理
+两种方案：
+  * 异常处理之try...catch
+```java
+    try {
+            int[] arr = {1, 2, 3};
+            System.out.println(arr[4]);//ArrayIndexOutOfBoundsException
+        }catch (ArrayIndexOutOfBoundsException e){
+//            System.out.println("超出索引"+e);
+        e.printStackTrace();
+```
+  * 异常处理之throws
+    格式：throws 异常类名
+    该格式是跟在方法括号后面的
+* 对于运行时异常，throws抛出异常仍是会停止工作，还是要使用try...catch异常进行异常处理
+* 对于编译时异常，如Date dd = sdf2.parse(ss);，此时不需要额外写try...catch，只需要使用throws即可
+
+## 21.4. Throwabl的成员方法  e.
+|方法名|说明|
+|:---|:---|
+|String getMessage()|返回此throwable的详细消息字符串，即异常原因|
+|String toString()|返回此可抛出的简短描述,包含message内容|
+|void printStackTrace()|把异常的错误信息输出在控制台，输出的信息是最全的|
+## 21.5. 编译时异常和运行时异常的区别
+也被称为受检异常和非受检异常  
+* 编译时异常：必须显示处理，否则程序就会发生错误，无法通过编译，也被称为受检异常
+* 运行时异常：无需显示处理，也可以和编译时异常一样处理，被称为非受检异常
+## 21.6. 自定义异常
+* 第一步，自定义异常类
+  ```java
+  public class No1Exception extends Exception{
+          public No1Exception() {
+          }
+          public No1Exception(String message) {
+              super(message);//message可以最终通过Throwable方法抛出自定义消息异常
+          }
+      }
+  ```
+* 第二步，定义具体类，在达不到条件时抛出异常，注意throw和throws的区别
+```java
+public class Teacher {
+    public void checkScore(int score) throws ScoreException{
+        if (score<0||score>100){
+            throw new ScoreException("分数有误");
+        }else {
+            System.out.println("分数正常");
+        }
+    }
+}
+```
+* 第三步，具体使用，使用时用try...catch捕捉异常
+```java
+try {
+    t.checkScore(score);
+} catch (ScoreException e) {
+    e.printStackTrace();
+}
+```
+### 21.6.1. throws和throw的区别
+|throws|throw|
+|:---|:---|
+|用在方法声明后面，跟的是异常类名|用在方法体内，跟的是异常对象名|
+|表示抛出异常，由该方法的调用者来处理|表示抛出异常，由方法体内的语句来处理|
+|表示出现异常的一种可能性，并不一定会发生这种异常|作为一个类用来生成具体错误对象，从而输出运行错误时的语句|
+# 22. 集合进阶
+## 22.1. Collection
+### 22.1.1. 集合类体系结构
+```mermaid
+stateDiagram-v2
+    集合-->Collection : 单列
+    集合-->Map : 双列
+    Collection-->List : 可重复
+    List-->ArrayList
+    List-->LinkedList
+    Collection-->Set : 不可重复
+    Set-->HashSet
+    Set-->TreeSet
+    Map-->HashMap
+```
+其中，Collection，Map，List，Set表示接口，其他则为实现类，接口是不能被实例化的  
+
+### 22.1.2. Collection集合概述和使用
+Collection集合概述
+* 是单例集合的顶层接口，它表示一组对象，这对象也称为Collection的元素
+* JDK不提供此接口的任何直接实现，它提供更具体的子接口，如Set，List实现
+创建Collection集合的对象
+* 多态的方式
+* 具体的实现类ArrayList  
+基本使用:
+```java
+Collection<String> c = new ArrayList<>();
+        //添加元素；boolean add(E,e)
+        c.add("HeWllo");
+        c.add("world");
+        c.add("java");
+        System.out.println(c);
+```
+### 22.1.3. Collection集合常用方法
+|方法名|说明|
+|:---|:---|
+|boolean add(E e)|添加元素|
+|boolean remove(Object o)|从集合中移除指定的元素|
+|void clear()|清空集合中的元素|
+|boolean contains(Object o)|判断集合中是否存在指定的元素|
+|Boolean isEmpty()|判断集合是否为空|
+|int size()|集合的长度，也就是集合中元素的个数|
+
+* 在add时能够创建重复字符串，且能正常显示
+* 类后带<E>说明是泛型
+### 22.1.4. Collection集合的遍历
+Iterator：迭代器，集合的专用遍历方式  
+* Iterator<E> iterator():返回此集合中元素的迭代器，通过集合的iterator()方法得到
+* 迭代器是通过集合的iterator()方法得到的，所以我们说它是依赖于集合而存在的  
+Iterator中的常用方法
+* E next():返回迭代器中的下一个元素
+* boolean hasNext():如果迭代器具有更多的元素，则返回true
+
+Collection<String> c = new ArrayList<>();  
+Iterator<String> it = c.iterator();//通过多态的方式来实现  
+### 22.1.5. 集合的使用步骤
+第1步：创建集合对象
+第2步：添加元素
+第2.1步：创建元素
+第2.2步：添加元素到集合
+第3步：遍历集合
+第3.1步：通过集合对象获取迭代器对象，直接 c.iterator()，然后快捷键Ctrl+Alt+V
+第3.2步：通过迭代器对象的hasNext()方法判断是否还有元素
+第3.3步：通过迭代器对象的next()方法获取下一个元素
+
+## 22.2. List
+### List集合概述和特点
+List集合概述
+* 有序集合（也称为序列），用户可以精确控制列表中每个元素的插入值，用户可以通过整数索引访问元素，并搜索列表中的元素
+* 与Set集合不同，列表通常允许重复的元素
+List集合特点
+* 有序：存储和去除的元素顺序一致
+* 可重复：存储的元素可重复
+```java
+List<String> list = new ArrayList<>();
+        list.add("hello");
+
+        Iterator<String> it = list.iterator();
+        while (it.hasNext()){
+            String s = (String) it.next();
+            System.out.println(s);
+        }
+```
+### List集合特有的方法
+|方法名|说明|
+|:---|:---|
+|void add(int index,E element)|在此集合中的指定位置插入指定的元素|
+|E remove(int index)|删除只当索引的元素，返回被删除的元素|
+|E set(int index,E element)|修改指定索引处的元素，返回被修改的元素|
+|E get(int index)|返回指定索引处的元素|
+* 添加、删除、替换、get时不要超过List索引
+### 并发修改异常
+本节详细给出迭代器对象的next方法使用与集合对象的add方法冲突的分析
+```java
+第一步，给出出现错误的代码
+List<String> list = new ArrayList<>();
+        list.add("hello");
+        list.add("java");
+        list.add("world");
+
+        Iterator<String> it = list.iterator();
+        while (it.hasNext()){
+            String s = it.next();
+            if (s.equals("java")){
+                list.add("nihao");
+            }
+        }
+at java.base/java.util.ArrayList$Itr.checkForComodification(ArrayList.java:1043)
+at java.base/java.util.ArrayList$Itr.next(ArrayList.java:997)
+at com.company.Collection类.Wrong.main(Wrong.java:16)
+分析出问题的部分，代码中是next行出错，以及ArrayList接口中checkForComodification和next两个方法出现问题
+首先把List内容拿出来。在这个接口里面有迭代器方法和add方法。依次点击视图——>工具窗口——>结构，把这两个方法复制下来。
+最终new的是ArrayList的对象，所以对这个对象分析一下，进入后找到最上面。ArrayList实现了List接口，就要重写上述两个方法，复制下来。
+最终next中出问题的就是第一行语句：checkForComodification();，该方法中有一个判断，如果modCount 和 expectedModCount不相等，就抛出异常
+首先要知道这两个值是什么，其中midcount是实际修改集合的次数，exceptmodcount是预期修改集合的次数。在调用Iterator时两个值赋为相等，为实际修改集合次数。
+为了知道modCount的起始位置，浏览ArrayList的父类abstractList，找到有 protected transient int modCount = 0;，即初始化时实际修改集合次数为0。在add时modCount++;而expectedModCount不变，此时在经过next时两个数就会不一样，故会抛出并发修改异常。
+public interface List<E> extends Collection<E> {
+  boolean add(E e);
+  Iterator<E> iterator();
+}
+
+public class ArrayList<E> extends abstractList<E> implements List<E>{
+   public boolean add(E e) {
+        modCount++;
+        add(e, elementData, size);
+        return true;
+    }
+    public Iterator<E> iterator() {
+      return new Itr();
+  }
+  private class Itr implements Iterator<E> {
+      int expectedModCount = modCount;
+      @SuppressWarnings("unchecked")
+      public E next() {
+          checkForComodification();
+          int i = cursor;
+          if (i >= size)
+              throw new NoSuchElementException();
+          Object[] elementData = ArrayList.this.elementData;
+          if (i >= elementData.length)
+              throw new ConcurrentModificationException();
+          cursor = i + 1;
+          return (E) elementData[lastRet = i];
+      }
+      
+    final void checkForComodification() {
+        if (modCount != expectedModCount)
+            throw new ConcurrentModificationException();
+    }
+  }
+}
+```
+如何解决并发修改异常：
+使用循环得到数据时不使用next，而是使用get方法，该方法只会调用得到String而不会改变上述两个变量的值。

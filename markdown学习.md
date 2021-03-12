@@ -19,7 +19,7 @@
 
 
 [![1](https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1608535635501&di=d5273063b0f2a338b2178a341b1205f3&imgtype=0&src=http%3A%2F%2Fattach.bbs.miui.com%2Fforum%2F201305%2F29%2F101838y2tkuxpfopkwzpvg.jpg)](#sss1)
-as
+
 as
 as
 as
@@ -50,6 +50,28 @@ Markdown是一种纯文本标记语言。[2][^1]。你说是不是↩[[3](http:/
 1
 1
 1
+[as](#sss1)
 1
+
+```mermaid
+stateDiagram-v2
+[*] --> First
+First --> Second
+First --> Third
+
+state First {
+    [*] --> fir
+    fir --> [*]
+}
+state Second {
+    [*] --> sec
+    sec --> [*]
+}
+state Third {
+    [*] --> thi
+    thi --> [*]
+}
+```
+
 [^1]:http://www.baidu.com
 [^4]:http://www.kuwo.cn
