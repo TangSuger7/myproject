@@ -162,9 +162,52 @@
     - [22.1.4. Collection集合的遍历](#2214-collection集合的遍历)
     - [22.1.5. 集合的使用步骤](#2215-集合的使用步骤)
   - [22.2. List](#222-list)
-    - [List集合概述和特点](#list集合概述和特点)
-    - [List集合特有的方法](#list集合特有的方法)
-    - [并发修改异常](#并发修改异常)
+    - [22.2.1. List集合概述和特点](#2221-list集合概述和特点)
+    - [22.2.2. List集合特有的方法](#2222-list集合特有的方法)
+    - [22.2.3. 并发修改异常](#2223-并发修改异常)
+    - [22.2.4. ListIterator](#2224-listiterator)
+    - [22.2.5. 增强for循环](#2225-增强for循环)
+    - [22.2.6. 数据结构](#2226-数据结构)
+    - [22.2.7. 常见数据结构之栈](#2227-常见数据结构之栈)
+    - [22.2.8. 常见数据结构之队列](#2228-常见数据结构之队列)
+    - [22.2.9. 常见数据结构之数组](#2229-常见数据结构之数组)
+    - [22.2.10. 常见数据结构之链表](#22210-常见数据结构之链表)
+    - [22.2.11. List集合子类特点](#22211-list集合子类特点)
+    - [22.2.12. LinkedList集合特有功能](#22212-linkedlist集合特有功能)
+    - [22.2.13. Set集合](#22213-set集合)
+    - [22.2.14. 哈希值](#22214-哈希值)
+    - [22.2.15. HashSet集合概述和特点](#22215-hashset集合概述和特点)
+    - [22.2.16. HashSet集合保证元素唯一性源码分析](#22216-hashset集合保证元素唯一性源码分析)
+    - [22.2.17. 常见数据结构之哈希表](#22217-常见数据结构之哈希表)
+    - [22.2.18. hash表之重复学生对象](#22218-hash表之重复学生对象)
+    - [22.2.19. LinkedHashSet集合概述和特点](#22219-linkedhashset集合概述和特点)
+    - [22.2.20. TreeSet集合概述和特点](#22220-treeset集合概述和特点)
+    - [22.2.21. 自然排序Comparable的使用](#22221-自然排序comparable的使用)
+    - [22.2.22. 比较器排序Comparator的使用](#22222-比较器排序comparator的使用)
+    - [22.2.23. Set集合中hashSet和TreeSet的区别](#22223-set集合中hashset和treeset的区别)
+  - [22.3. 泛型](#223-泛型)
+    - [22.3.1. 泛型类](#2231-泛型类)
+    - [22.3.2. 泛型方法](#2232-泛型方法)
+    - [22.3.3. 泛型接口](#2233-泛型接口)
+    - [22.3.4. 类型通配符](#2234-类型通配符)
+    - [22.3.5. 可变参数](#2235-可变参数)
+    - [22.3.6. 可变参数的使用](#2236-可变参数的使用)
+  - [22.4. Map](#224-map)
+    - [22.4.1. Map集合概述和使用](#2241-map集合概述和使用)
+    - [22.4.2. Map集合的基本功能](#2242-map集合的基本功能)
+    - [22.4.3. Map集合的获取功能](#2243-map集合的获取功能)
+    - [22.4.4. Map集合的遍历（方式1）](#2244-map集合的遍历方式1)
+    - [22.4.5. Map集合的遍历（方式2）](#2245-map集合的遍历方式2)
+    - [22.4.6. TreeMap--键值排序的哈希表](#2246-treemap--键值排序的哈希表)
+      - [22.4.6.1. hashmap存储键-学生姓名。值-学生对象及两种遍历](#22461-hashmap存储键-学生姓名值-学生对象及两种遍历)
+      - [22.4.6.2. hashmap存储键——学生对象。值-学生住址及防止重复方法](#22462-hashmap存储键学生对象值-学生住址及防止重复方法)
+      - [22.4.6.3. ArrayList集合存储HashMap元素遍历](#22463-arraylist集合存储hashmap元素遍历)
+      - [22.4.6.4. HashMap集合存储ArrayList元素并遍历](#22464-hashmap集合存储arraylist元素并遍历)
+      - [22.4.6.5. 统计字符串中每个字符出现的次数（HashMap实现方式）](#22465-统计字符串中每个字符出现的次数hashmap实现方式)
+  - [Collections（具体的类）](#collections具体的类)
+      - [ArrayList存储学生对象并排序](#arraylist存储学生对象并排序)
+      - [模拟斗地主](#模拟斗地主)
+      - [模拟斗地主](#模拟斗地主-1)
 
 <!-- /TOC -->
 # 1. 前置教程
@@ -931,6 +974,7 @@ Interger.MAX_VALUE;int范围最大值
 
 Interger是最终类，还提供了几种将String和int相互转换的方法，以及其他常量和方法在处理int时非常有用
 #### 20.6.2.1. 基本类型包装类
+**所有基础类型在存储时使用的都是包装类型！！！！**
 |基本数据类型|包装类|
 |:---|:---|
 |byte|Byte|
@@ -1172,7 +1216,7 @@ Iterator<String> it = c.iterator();//通过多态的方式来实现
 第3.3步：通过迭代器对象的next()方法获取下一个元素
 
 ## 22.2. List
-### List集合概述和特点
+### 22.2.1. List集合概述和特点
 List集合概述
 * 有序集合（也称为序列），用户可以精确控制列表中每个元素的插入值，用户可以通过整数索引访问元素，并搜索列表中的元素
 * 与Set集合不同，列表通常允许重复的元素
@@ -1189,7 +1233,7 @@ List<String> list = new ArrayList<>();
             System.out.println(s);
         }
 ```
-### List集合特有的方法
+### 22.2.2. List集合特有的方法
 |方法名|说明|
 |:---|:---|
 |void add(int index,E element)|在此集合中的指定位置插入指定的元素|
@@ -1197,7 +1241,7 @@ List<String> list = new ArrayList<>();
 |E set(int index,E element)|修改指定索引处的元素，返回被修改的元素|
 |E get(int index)|返回指定索引处的元素|
 * 添加、删除、替换、get时不要超过List索引
-### 并发修改异常
+### 22.2.3. 并发修改异常
 本节详细给出迭代器对象的next方法使用与集合对象的add方法冲突的分析
 ```java
 第一步，给出出现错误的代码
@@ -1260,3 +1304,587 @@ public class ArrayList<E> extends abstractList<E> implements List<E>{
 ```
 如何解决并发修改异常：
 使用循环得到数据时不使用next，而是使用get方法，该方法只会调用得到String而不会改变上述两个变量的值。
+### 22.2.4. ListIterator
+列表迭代器
+* 通过List集合的listIterator()方法得到，所以说它是List集合特有的迭代器
+* 用于允许程序员任一方向遍历列表的列表迭代器，在迭代期间修改列表，并获取列表中迭代器的当前位置。
+**Lostiterator中的常用方法：**
+* E next():返回迭代器的下一个元素
+* boolean hasNext():如果迭代器具有更多元素，则返回true
+* E previous():返回列表中的上一个元素
+* boolean hasPrevious():如果此列表迭代器在相反方向遍历列表时具有更多元素，则返回true
+* void add(E e):将指定的元素插入列表
+* * 列表迭代器add方法可以实现玩迭代器中添加元素，它不会引发并发修改异常，因为底层会把实际修改值赋值给预期修改值
+
+### 22.2.5. 增强for循环
+目的：简化数组和collection集合的遍历
+* 实现了Iterable接口的类允许其对象成为增强型for语句的目标
+* 它是JDK5之后出现的，其内部原理是一个Iterator迭代器
+* 当使用增强for时List集合不能使用add语句，因为其内部同样是一个Iterator迭代器，使用时仍会抛出异常
+格式：
+for(**元素数据类型** 变量名:数组或者collection集合){
+  //在此处使用变量名即可，该变量就是元素
+}
+范例：
+Int[] arr = {1,2,3,4,5};
+for (int i:arr){
+  sout(i)
+}
+### 22.2.6. 数据结构
+数据结构是计算机存储、组织数据的方式，是指相互之间存在一种或多种特定关系的数据元素的集合。通常情况下，精心选择的数据结构可以带来更高的运行或者存储效率。
+### 22.2.7. 常见数据结构之栈
+数据进入栈的过程：压/进栈，进栈是从栈顶进入
+数据离开栈的过程：弹/出栈，首先出的是栈顶元素
+**先进后出**
+### 22.2.8. 常见数据结构之队列
+数据从后端进入队列的过程：入队列
+数据从前端离开队列的过程：出队列
+**先进先出**
+### 22.2.9. 常见数据结构之数组
+**数组是一种查询效块，增删慢的模型**
+查询数据通过索引定位，查询任意数据耗时相同，查询效率高
+删除数据时，要将原始数据删除，同时后面每个数据前移，删除效率低
+添加数据时。添加位置后的每个元素后移，再添加元素，添加效率低
+### 22.2.10. 常见数据结构之链表
+![链表](链表.png)
+对于数组来说
+* 链表是一种增删块的模型
+* 链表是一种查询慢的模型（查询数据是否存在，必须从头开始查询）
+* 链表节省空间
+### 22.2.11. List集合子类特点
+ArrayList的底层数据结构是数组，查询快，增删慢（常用）
+LinkedList是双链表实现的，查询慢，增删块
+```java
+增加：List:19  Link:3
+查询：List:68  Link:51
+```
+### 22.2.12. LinkedList集合特有功能
+|方法名|说明|
+|:---|:---|
+|void addFirst(E e)|在该列表开头插入指定的元素|
+|void addLast(E e)|将指定的元素追加到此列表的末尾|
+|E getFirst()|返回此列表中的第一个元素|
+|E getLast()|返回此列表中的最后一个元素|
+|E removeFirst()|从此列表中删除并删除第一个元素|
+|E removeLast()|从此列表中删除并返回最后一个元素|
+### 22.2.13. Set集合
+* 不包含重复元素的集合
+* 没有带索引的方法，所以不能使用普通for循环遍历
+使用哈希表的方法时，对集合内元素的顺序不予保证
+### 22.2.14. 哈希值
+哈希值：是JDK根据对象的**地址**或者**字符串**或者**数字**算出来的int类型的**数值**
+Object类中有一个方法可以获取**对象的哈希值**
+* int hashCode()：返回对象的哈希码值
+* * 不同情况下，不同对象的哈希值是不相同的，通过方法重写，可以实现不同对象的哈希值是相同的
+* * 字符串重写了hashCode方法，不同字符串返回的哈希值可能是相同的
+### 22.2.15. HashSet集合概述和特点
+* 底层数据结构是哈希表
+* 对集合的迭代顺序不作任何保证，也就是说不保证存储和取出的元素顺序一致
+* 没有带索引的方法，所以不能使用普通for循环遍历
+* 由于Set是集合，所以是不包含重复元素的集合
+### 22.2.16. HashSet集合保证元素唯一性源码分析
+```java
+HashSet<String> ss = new HashSet<>();
+ss.add("nihao");
+ss.add("jaja");
+ss.add("java");
+System.out.println(ss.add("jaja"));
+
+public boolean add(E e) {
+    return map.put(e, PRESENT)==null;
+}
+static final int hash(Object key) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+}
+public V put(K key, V value) {
+    return putVal(hash(key), key, value, false, true);
+}
+//hash值是根据元素的hashcode方法得到的
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+               boolean evict) {
+    Node<K,V>[] tab; Node<K,V> p; int n, i;
+    //如果哈希表未初始化，就进行初始化
+    if ((tab = table) == null || (n = tab.length) == 0)
+        n = (tab = resize()).length;
+    //根据对象的哈希值计算对象的存储位置，如果该位置没有元素，就存储元素
+    if ((p = tab[i = (n - 1) & hash]) == null)
+        tab[i] = newNode(hash, key, value, null);
+    else {
+        Node<K,V> e; K k;
+        //如果该位置有元素，首先将存入的元素和以前的元素比较哈希值。如果哈希值不同，会继续向下执行，new一个新的结点，将新元素添加到集合
+        //如果哈希值相同，会调用对象的equals方法，如果返回true，说明元素重复，不存储
+
+        if (p.hash == hash &&
+            ((k = p.key) == key || (key != null && key.equals(k))))
+            e = p;
+        else if (p instanceof TreeNode)
+            e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
+        else {
+            for (int binCount = 0; ; ++binCount) {
+                if ((e = p.next) == null) {
+                    p.next = newNode(hash, key, value, null);
+                    if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
+                        treeifyBin(tab, hash);
+                    break;
+                }
+                if (e.hash == hash &&
+                    ((k = e.key) == key || (key != null && key.equals(k))))
+                    break;
+                p = e;
+            }
+        }
+        if (e != null) { // existing mapping for key
+            V oldValue = e.value;
+            if (!onlyIfAbsent || oldValue == null)
+                e.value = value;
+            afterNodeAccess(e);
+            return oldValue;
+        }
+    }
+    ++modCount;
+    if (++size > threshold)
+        resize();
+    afterNodeInsertion(evict);
+    return null;
+}
+```
+### 22.2.17. 常见数据结构之哈希表
+* JDK8之前，底层采用**数值+链表**实现，可以说是一个元素为链表的数组
+* JDK8之后，在长度比较长的时候，底层实现了优化
+### 22.2.18. hash表之重复学生对象
+对于自建类，本身在new对象时，不论内容是否相同，哈希值都不同，可以通过重写hashCode和equals方法使得当类中内容相同时返回哈希值相同。
+### 22.2.19. LinkedHashSet集合概述和特点
+* 使用哈希表和链表实现的Set接口，具有可预测的迭代次序
+* 由链表保证元素有序，也就是说元素的存储和取出顺序是一致的
+* 由哈希表保证元素唯一，也就说没有重复的元素
+### 22.2.20. TreeSet集合概述和特点
+* **元素有序**，这里的顺序不是指存储和取出的顺序，而是按照一定的规则进行排序，具体排序方式取决于构造方法
+  TreeSet():根据其元素的自然排序进行排序
+  TreeSet(Comparator comparator):根据指定的比较器进行排序
+* 没有带索引的方法，所以**不能使用普通for循环遍历**
+* 由于是Set集合，所以**不包含重复元素的集合**
+* **所有基本类型，在存储时使用的是包装类型**
+```java
+TreeSet<Integer> ts = new TreeSet<>();
+```
+### 22.2.21. 自然排序Comparable的使用
+```java
+//子类：
+public class Student implements Comparable<Student>
+//重写CompareTo：
+public int compareTo(Student s) {
+    int num = this.age-s.age;
+    num=num==0?this.name.compareTo(s.name):num;
+    return num;
+}
+
+```
+* 存储学生对象并遍历，创建TreeSet集合使用无参构造方法
+* 要求：按照年龄从小到大排序，年龄相同，按照姓名的字母顺序排序
+结论
+* 用TreeSet集合存储自定义对象，无参构造方法使用的时**自然排序**对元素进行排序的
+* 自然排序，就是**让元素所属的类实现Comparable接口**，重写compareTo(To)方法
+* 重写方法时，一定要注意排序规则必须按照要求的主要条件和次要条件来写
+### 22.2.22. 比较器排序Comparator的使用
+* 存储学生对象并遍历。创建TreeSet集合使用带参构造方法
+* 要求：按照年龄从小到大排序，年龄相同，按照姓名的字母顺序排序
+结论
+* 用TreeSet集合存储自定义对象，带参构造方法使用的是**比较器排序**对元素进行的排序
+* 比较器排序，就是**让集合构造方法接收Comparator的实现类对象**，重写compare(T o1,T o2)方法
+* 重写方法时，一定要注意排序规则必须按照要求的主要条件和次要条件来写
+```java
+TreeSet<Student> ts = new TreeSet<>(new Comparator<Student>() {
+    @Override
+    public int compare(Student o1, Student o2) {
+        int num = o1.getAge()-o2.getAge();
+        num = num==0?o1.getName().compareTo(o2.getName()):num;
+        return num;
+    }
+});
+```
+### 22.2.23. Set集合中hashSet和TreeSet的区别
+大体上区别不大，只是TreeSet内部会对元素进行排序
+## 22.3. 泛型
+泛型是JDK5中引入的特性，它提供了编译时类型安全检测机制，该机制允许在编译时检测到非法的类型
+它的本质是**参数化类型**，也就是说操作的数据类型被指定为一个参数
+一提到参数，最熟悉的就是定义方法时有形参，然后调用此方法时传递实参。那么参数化类型怎么理解呢？
+顾名思义，就是就是**将类型由原来的具体的类型参数化，然后再使用/调用时传入具体的类型**
+这种参数类型可以用在类、方法和接口中，分别成为泛型类、泛型方法、泛型接口
+
+泛型定义格式：
+* <类型>：指定一种类型的格式。这里的类型可以看成是形参
+* <类型1,类型2...>：指定多种类型的格式，多种类型之间用逗号隔开。这里的类型可以看成是形参
+* 将来具体调用时候给定的类型可以看成是实参，并且实参的类型只能是引用数据类型
+
+泛型好处：
+* 把运行时期的问题提前到了编译期间
+* 避免了强制类型转换
+```java
+Collection c = new ArrayList();//再添加c.add(100)时不会报错，但使用迭代器调用时会出问题
+Collection<String> c = new ArrayList();//使用泛型指定了Collection类存储元素的数据格式，好处如上
+```
+### 22.3.1. 泛型类
+目的：在子类中的一个方法中接收多种数据类型
+使用方法即定义格式
+格式：修饰符 class 类名<类型>{}
+范例：public class Generic<T>{}
+```Java
+// 子类
+public class Teacher<T>{
+  private T name;
+//执行类
+Teacher<String> t = new Teacher<String>();
+  t.setName("你好");
+```
+### 22.3.2. 泛型方法
+泛型方法的定义格式：
+* 格式：修饰符 <类型> 返回值类型 方法名 (类型 变量名){}
+* 范例：public <T> void show(T t){}
+```java
+//子类
+public class Teacher2 {
+    public <T> void show(T t){
+        System.out.println(t);
+    }
+}
+//父类
+Teacher2 t = new Teacher2();
+```
+### 22.3.3. 泛型接口
+使接口中方法的输入数据格式自定义，此时注意接口实现方法的输入数据格式也是泛类，即<T>。定义格式：
+* 格式：修饰符 interface 接口名<类型>{}
+* 范例：public interface Generic<T>{}
+```java
+//接口步骤
+public interface Generic<T> {
+    void show(T t);
+}
+//接口实现类步骤
+public class Genericimpl<T> implements Generic<T> {
+    @Override
+    public void show(T t) {
+        System.out.println(t);
+    }
+}
+//主方法步骤
+Genericimpl<String> gl = new Genericimpl();
+```
+### 22.3.4. 类型通配符
+为了表示各种泛型List的父类，可以使用类型的通配符
+* 类型通配符：<?>
+* List<?>:表示元素类型未知的List，它的元素可以匹配**任何的类型**
+* 这种带通配的List仅表示它是各种泛型List的父类，并**不能把元素添加到其中**
+
+如果说我们不希望List<?>是任何泛型List的父类，只希望它代表某一类泛型List的父类，可以使用类型通配符的上限
+* 类型通配符上限：<?extends 类型>
+* List<?extends Number>:它代表的类型是**Number或者其子类型**
+除了可以指定类型通配符的上限，我们也可以指定类型通配符的下限
+* 类型通配符下限：<?super 类型>
+* List<?super Number>:它表示的类型是**Number或者父类型**
+```java
+List<?> list1 = new ArrayList<Object>();
+List<?> list2 = new ArrayList<Number>();
+List<?> list3 = new ArrayList<Integer>();
+System.out.println("-------------------");
+
+//        List<? extends Number> list4 = new ArrayList<Object>();
+List<? extends Number> list5 = new ArrayList<Number>();
+List<? extends Number> list6 = new ArrayList<Integer>();
+
+List<? super Number> list7 = new ArrayList<Object>();
+List<? super Number> list8 = new ArrayList<Number>();
+//        List<? super Number> list9 = new ArrayList<Integer>();
+```
+### 22.3.5. 可变参数
+可变参数又称为参数个数可变，用作方法的形参出现，那么方法参数个数就是可变的了。
+目标：当输入参数很多时，实现一个方法对多种可变参数的输入进行计算
+* 格式：修饰符 返回值类型 方法名(数据类型... 变量名){}
+* 范例：public static int sum(int... a){}
+* 可变参数对应的对象实际上是一个数组
+* 如果方法中包含多个参数，且包含可变参数，则需要把可变参数放在后面，如下面代码示例，第一个参数传给参数b
+```java
+public static void main(String[] args) {
+    System.out.println(sum(1,2,3,4,5));
+}
+public static int sum(int b,int... a){//对象a是一个数组
+    int sum = 0;
+    for(int i:a){
+        sum += i;
+    }
+    sum += b;
+    return sum;
+}
+```
+### 22.3.6. 可变参数的使用
+Arrays工具类中有一个静态方法：
+* public static<T> List<T> asList(T... a):返回由指定数组支持的固定大小的列表
+* 返回的集合不能做增删操作，可以做修改操作
+List接口中有一个静态方法：
+* public static <E> List<E> of (E... elemnents):返回包含任意数量元素的不可变列表
+* 返回的集合不能做增删改操作
+Set接口中有一个静态方法：
+* public static <E> Set <E> of (E... elements):返回一个包含任意数量元素的不可变集合
+* 返回的集合不能做增删改操作，没有修改的方法
+```java
+List<String> list = Arrays.asList("hello","world","java");
+
+/*      // public static <T> List<T> asList (T... a);返回由指定数组支持的固定大小的列表
+//        list.add("java1");//UnsupportedOperationException
+//        list.remove("hello");//UnsupportedOperationException
+list.set(1,"javaaa");
+*/
+// public static <T> List<T> of (T... a);返回包含任意数量元素的不可变列表
+List<String> list1 = List.of("Hello","world","java","java");
+//        list1.add("haha");//UnsupportedOperationException
+//        list1.remove(3);//UnsupportedOperationException
+//        list1.set(2,"haha");//UnsupportedOperationException
+//        System.out.println(list1);
+
+//public static <T> Set<T> of (T... a);返回一个包含任意数量元素的不可变集合
+Set<String> set = Set.of("hello","world","java");//set集合不允许有重复元素，当输入元素存在重复时会抛出异常
+//        set.add("haha");//UnsupportedOperationException
+//        set.remove("hello");//UnsupportedOperationException
+//        set集合是没有序号的
+System.out.println(set);
+```
+## 22.4. Map
+### 22.4.1. Map集合概述和使用
+* Interface Map<K,V>  K:键的类型，V:值的类型
+* 将键映射到值的对象，不能包含重复的键，每个键可以映射到最多一个值
+* 举例：学生的姓名和学号
+  itheima001   林青霞
+  itheima002   张曼玉
+  itheima003   王祖贤
+创建Map集合的对象
+* 多态的方式
+* 具体的实现类HashMap
+```java
+Map<String,String> map = new HashMap<>();
+```
+### 22.4.2. Map集合的基本功能
+|方法名|说明|
+|:---|:---|
+|put(K ket,V value)|添加元素|
+|remove(Pbject Key)|根据键删除键值对元素|
+|void clear()|移除所有的键值对元素|
+|boolean containsKey(Object key)|判断集合是否包含指定的键|
+|boolean containsValue(Object value)|判断集合是否包含指定的键|
+|boolean isEmpty()|判断集合是否为空|
+|int size()|集合的长度，也就是集合中键值对的个数|
+
+### 22.4.3. Map集合的获取功能
+|方法名|说明|
+|:---|:---|
+|get(Object key)|根据键获取值|
+|Set<K> keySet()|获取所有键的集合|
+|Collection<V> values()|获取所有值的集合|
+|Set<Map.Entry<K,V>> entrySet()|获取所有键值对对象的集合|
+```java
+Map<String,String> map = new HashMap<>();
+
+map.put("itheima001","林青霞");
+map.put("itheima002","张曼玉");
+map.put("hahaha","jajaja");
+
+System.out.println(map.get("hahaha"));
+System.out.println(map.get("hahaha1"));//None
+
+Set<String> keyset = map.keySet();
+for (String s:keyset){
+    System.out.println(s);
+}
+
+Collection<String> values = map.values();
+for (String s:values){
+    System.out.println(s);
+}
+```
+### 22.4.4. Map集合的遍历（方式1）
+可以把Map看成是一个夫妻对的集合
+遍历思路：
+* 把所有丈夫集中起来
+* 遍历丈夫集合，获取到每一个丈夫
+* 根据丈夫去找对应的妻子
+转换为Map集合中的操作：
+* 获取所有键的集合。用keySet()方式实现
+* 遍历键的集合，获取到每一个键，用增强for实现
+* 根据键去找值，用get(Object key())方法实现，在增强foe中输出
+### 22.4.5. Map集合的遍历（方式2）
+可以把Map看成是一个夫妻对的集合
+遍历思路
+* 获取所有结婚证的集合
+* 遍历结婚证的集合，得到每一个结婚证
+* 根据结婚证获取丈夫和妻子
+转换为Map集合中的操作：
+* 获取所有键值对对象的集合
+  Set<Map.Entry<K,V>>entrySet():获取所有键值对对象的集合
+* 遍历键值对对像的集合，得到每一个键值对对象
+  用增强for实现，得到每一个Map.Entry
+* 根据键值对对象获取键和值
+  用getKey()得到键
+  用getValue()得到值
+```java
+Map<String,String> map = new HashMap<>();
+
+map.put("itheima001","林青霞");
+map.put("itheima002","张曼玉");
+map.put("hahaha","jajaja");
+
+Set<Map.Entry<String, String>> entrySet = map.entrySet();
+for (Map.Entry<String ,String> me :entrySet){
+  System.out.println(me.getKey()+','+me.getValue());
+}
+```
+### 22.4.6. TreeMap--键值排序的哈希表
+使用方法与HashMap类似，但其键值是排序过的。不做过多叙述。
+#### 22.4.6.1. hashmap存储键-学生姓名。值-学生对象及两种遍历
+```java
+HashMap<String,Student> map = new HashMap<>();
+Student s1 = new Student("林青霞",33);
+Student s2 = new Student("张无忌",22);
+Student s3 = new Student("王郁琦",11);
+
+map.put(s1.getName(),s1);
+map.put(s2.getName(),s2);
+map.put(s3.getName(),s3);
+
+Set<Map.Entry<String, Student>> st = map.entrySet();
+for (Map.Entry<String ,Student> me:st){
+    System.out.println(me.getKey()+','+me.getValue());
+}
+
+Set<String> st2 = map.keySet();
+for (String e:st2){
+    Student s = map.get(e);
+    System.out.println(e+','+s);
+}
+```
+#### 22.4.6.2. hashmap存储键——学生对象。值-学生住址及防止重复方法
+```java
+//Student子类，重写hashCode和equals方法
+//实现类
+HashMap<Student, String> m1 = new HashMap<>();
+
+Student s1 = new Student("林青霞",33);
+Student s2 = new Student("张无忌",22);
+Student s3 = new Student("王郁琦",11);
+Student s4 = new Student("王郁琦",11);
+
+m1.put(s1,"北京");
+m1.put(s2,"北京");
+m1.put(s3,"北京");
+m1.put(s4,"北京");
+
+Set<Map.Entry<Student,String>> me1 = m1.entrySet();
+for (Map.Entry<Student,String> me:me1){
+    System.out.println(me.getKey().getName()+','+me.getKey().getAge()+','+me.getValue());
+}
+```
+#### 22.4.6.3. ArrayList集合存储HashMap元素遍历
+需求：创建一个ArrayList集合，存储三个元素，每一个元素都是HashMap，每一个HashMap的键和值都是String，并遍历
+```java
+List<HashMap<String, String>> list = new ArrayList<>();//创建
+HashMap<String, String> map = new HashMap<>();n
+map.put("123","234");
+map.put("1234","2345");
+list.add(map);
+
+for(HashMap<String, String> hm:list){//遍历
+Set<String> strings = hm.keySet();//法1
+for (String s:strings){
+    String s1 = hm.get(s);
+    System.out.println(s1+','+s);
+}
+for (Map.Entry<String, String> s: hm.entrySet()){//法2
+    System.out.println(s.getKey()+','+s.getValue());
+    System.out.println("-------------");
+}
+}
+```
+#### 22.4.6.4. HashMap集合存储ArrayList元素并遍历
+需求：创建一个HashMap集合，存储三个键值对元素，每一个键值对元素的键是String，值是ArrayList，每一个ArrayList的元素是String，并遍历
+```java
+HashMap<String, List<String>> map = new HashMap<>();
+List<String> list1= new ArrayList<>();
+list1.add("nihao");
+list1.add("wohenhao");
+
+for (Map.Entry<String,List<String>> ls:map.entrySet()){
+    for (String l:ls.getValue()){
+        System.out.println(ls.getKey()+":"+l);
+    }
+}
+```
+#### 22.4.6.5. 统计字符串中每个字符出现的次数（HashMap实现方式）
+* 当字符串修改操作小于100次时，String和StringBuilder没有区别，记住，StringBuilder是一种高效的、动态的创建字符串方法！！！
+* 此处使用TreeMap后键值排序稳定，输出显示效果更好
+```java
+public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    System.out.println("请输入字符串");
+    String str = sc.nextLine();
+    System.out.println(getStringNum(str));
+}
+public static String  getStringNum(String s){
+    TreeMap<Character, Integer> map = new TreeMap<>();
+    for (int i=0;i<s.length();i++){
+        Integer c = map.get(s.charAt(i));
+        if(c==null){
+            map.put(s.charAt(i),1);
+        }else {
+            map.put(s.charAt(i),c+1);
+        }
+    }
+    String s2="";
+    for (Character c:map.keySet()){
+        s2 +=c+"("+map.get(c)+")";
+    }
+    return s2;
+}
+```
+## Collections（具体的类）
+* 是针对集合操作的工具类
+Collections类常用的方法
+* public static <T extends Comparable<?super T>> void sort(List<T> list):将指定的列表按升序排列
+* public static void reverse(List<?> list):反转指定列表中元素的顺序
+* public static void shuffle(List<?> list):使用默认的随机源随机排列指定的列表
+```java
+Collections.reverse(list)//使用后相当于重新对list赋值
+Collections.sort(list)
+Collections.shuffle(list)
+```
+#### ArrayList存储学生对象并排序
+使用ArrayList存储三个学生对象并通过学生年龄排序，当学生年龄相同时，通过学生首字母排序
+```java
+Student s1 = new Student("b林青霞",22);
+Student s2 = new Student("令狐冲",23);
+Student s3 = new Student("c你好",22);
+
+ArrayList<Student> list = new ArrayList<>();
+list.add(s1);
+list.add(s2);
+list.add(s3);
+
+Collections.sort(list, new Comparator<Student>() {
+    @Override
+    public int compare(Student o1, Student o2) {
+        int flag = o1.getAge()-o2.getAge();
+        flag=flag==0?o1.getName().compareTo(o2.getName()):flag;
+        return flag;
+    }
+});
+for (Student s:list){
+    System.out.println(s);
+}
+```
+#### 模拟斗地主
+洗牌、发牌、看牌
+设计方法：ArrayList
+每张牌对应一个字符串，然后通过字符串的ArrayList中的Collections方法对其打乱顺序，然后利用对3求余将字符串代表的排分给各个玩家
+#### 模拟斗地主
+设计方法：HashMap+TreeSet+ArrayList
+首先创建HasMap，键是0-53编号，值是各个花色的字符串
+然后创建ArrayList，新建一个编号数组，然后将其打乱顺序
+发牌使用for循环即可，在保存每个人拥有的牌的编号时使用TreeSet集合接收
+最后遍历TreeSet集合，获取编号，到HashMap找到对应的牌的字符串，打印输出
