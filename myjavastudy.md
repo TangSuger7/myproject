@@ -204,10 +204,52 @@
       - [22.4.6.3. ArrayList集合存储HashMap元素遍历](#22463-arraylist集合存储hashmap元素遍历)
       - [22.4.6.4. HashMap集合存储ArrayList元素并遍历](#22464-hashmap集合存储arraylist元素并遍历)
       - [22.4.6.5. 统计字符串中每个字符出现的次数（HashMap实现方式）](#22465-统计字符串中每个字符出现的次数hashmap实现方式)
-  - [Collections（具体的类）](#collections具体的类)
-      - [ArrayList存储学生对象并排序](#arraylist存储学生对象并排序)
-      - [模拟斗地主](#模拟斗地主)
-      - [模拟斗地主](#模拟斗地主-1)
+  - [22.5. Collections（具体的类）](#225-collections具体的类)
+      - [22.5.0.6. ArrayList存储学生对象并排序](#22506-arraylist存储学生对象并排序)
+      - [22.5.0.7. 模拟斗地主](#22507-模拟斗地主)
+      - [22.5.0.8. 模拟斗地主](#22508-模拟斗地主)
+- [23. File](#23-file)
+  - [23.1. File](#231-file)
+    - [23.1.1. File类概述和构造方法](#2311-file类概述和构造方法)
+    - [23.1.2. File类创建功能](#2312-file类创建功能)
+    - [23.1.3. File类判断和获取功能](#2313-file类判断和获取功能)
+    - [23.1.4. File类删除功能](#2314-file类删除功能)
+    - [23.1.5. 递归](#2315-递归)
+  - [23.2. I/O流概述和分类](#232-io流概述和分类)
+  - [23.3. 字节流写数据](#233-字节流写数据)
+    - [23.3.1. 字节流写数据的3种方法](#2331-字节流写数据的3种方法)
+    - [23.3.2. 字节流写数据的两个小问题](#2332-字节流写数据的两个小问题)
+      - [23.3.2.1. 字节流写数据如何实行换行](#23321-字节流写数据如何实行换行)
+      - [23.3.2.2. 字节流写数据如何实现追加写入](#23322-字节流写数据如何实现追加写入)
+    - [23.3.3. 字节流写数据加入异常处理](#2333-字节流写数据加入异常处理)
+    - [23.3.4. 字节流读数据（一次读一个字节数据）](#2334-字节流读数据一次读一个字节数据)
+      - [23.3.4.1. 复制文本文件](#23341-复制文本文件)
+    - [23.3.5. 字节流读数据（一次读一个字节数组数据）](#2335-字节流读数据一次读一个字节数组数据)
+      - [23.3.5.1. 复制图片](#23351-复制图片)
+  - [23.4. 字节缓冲流（具体类）](#234-字节缓冲流具体类)
+      - [23.4.0.2. 字节流复制视频（缓冲区的好处）](#23402-字节流复制视频缓冲区的好处)
+  - [23.5. 字符流](#235-字符流)
+    - [23.5.1. 编码表](#2351-编码表)
+        - [23.5.1.0.1. 常见字符集有ASCII字符集、GBXXX字符集、Unicode字符集等](#235101-常见字符集有ascii字符集gbxxx字符集unicode字符集等)
+    - [23.5.2. 字符串中的编码解码问题](#2352-字符串中的编码解码问题)
+    - [23.5.3. 字符流写数据的5种方式](#2353-字符流写数据的5种方式)
+    - [23.5.4. 字符流读数据的两种方式](#2354-字符流读数据的两种方式)
+      - [23.5.4.1. 复制java文件](#23541-复制java文件)
+      - [23.5.4.2. 复制java文件简化升级版](#23542-复制java文件简化升级版)
+    - [23.5.5. 字符缓冲流](#2355-字符缓冲流)
+    - [23.5.6. 字符缓冲流的特有功能](#2356-字符缓冲流的特有功能)
+      - [23.5.6.1. IO流小结](#23561-io流小结)
+      - [23.5.6.2. 集合到文件](#23562-集合到文件)
+      - [23.5.6.3. 文件到集合](#23563-文件到集合)
+      - [23.5.6.4. 字符串分割    String[]str2 =  str1.split(",");](#23564-字符串分割----stringstr2---str1split)
+      - [23.5.6.5. 字符串转Integer格式  int num = Integer.parseInt(String)](#23565-字符串转integer格式--int-num--integerparseintstring)
+      - [23.5.6.6. ArrayList中的对象按照指定格式存储到文件](#23566-arraylist中的对象按照指定格式存储到文件)
+      - [集合到文件（数据排序改进版）](#集合到文件数据排序改进版)
+    - [复制文件的异常处理](#复制文件的异常处理)
+  - [特殊操作流](#特殊操作流)
+    - [标准输入输出流](#标准输入输出流)
+    - [打印流](#打印流)
+- [复制多级文件夹](#复制多级文件夹)
 
 <!-- /TOC -->
 # 1. 前置教程
@@ -1843,7 +1885,7 @@ public static String  getStringNum(String s){
     return s2;
 }
 ```
-## Collections（具体的类）
+## 22.5. Collections（具体的类）
 * 是针对集合操作的工具类
 Collections类常用的方法
 * public static <T extends Comparable<?super T>> void sort(List<T> list):将指定的列表按升序排列
@@ -1854,7 +1896,7 @@ Collections.reverse(list)//使用后相当于重新对list赋值
 Collections.sort(list)
 Collections.shuffle(list)
 ```
-#### ArrayList存储学生对象并排序
+#### 22.5.0.6. ArrayList存储学生对象并排序
 使用ArrayList存储三个学生对象并通过学生年龄排序，当学生年龄相同时，通过学生首字母排序
 ```java
 Student s1 = new Student("b林青霞",22);
@@ -1878,13 +1920,814 @@ for (Student s:list){
     System.out.println(s);
 }
 ```
-#### 模拟斗地主
+#### 22.5.0.7. 模拟斗地主
 洗牌、发牌、看牌
 设计方法：ArrayList
 每张牌对应一个字符串，然后通过字符串的ArrayList中的Collections方法对其打乱顺序，然后利用对3求余将字符串代表的排分给各个玩家
-#### 模拟斗地主
+#### 22.5.0.8. 模拟斗地主
 设计方法：HashMap+TreeSet+ArrayList
 首先创建HasMap，键是0-53编号，值是各个花色的字符串
 然后创建ArrayList，新建一个编号数组，然后将其打乱顺序
 发牌使用for循环即可，在保存每个人拥有的牌的编号时使用TreeSet集合接收
 最后遍历TreeSet集合，获取编号，到HashMap找到对应的牌的字符串，打印输出
+```java
+HashMap<Integer, String> map= new HashMap<>();
+String[] huase = {"♥","♦","♠","♣"};
+String[] dianshu = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+ArrayList<Integer> cixu = new ArrayList<>();
+int index1 =0;
+for (String s1:dianshu){
+    for (String s2:huase){
+        map.put(index1,s2+s1);
+        cixu.add(index1);
+        System.out.println(index1);
+        index1++;
+    }
+}
+map.put(index1,"joker");
+cixu.add(index1);
+index1++;
+map.put(index1,"JOKER");
+cixu.add(index1);
+//        for (Map.Entry<Integer,String> m1:map.entrySet()){
+//            System.out.println(m1.getKey()+","+m1.getValue());
+//        }
+TreeSet fqy = new TreeSet<>();
+TreeSet zmy = new TreeSet<>();
+TreeSet egz = new TreeSet();
+TreeSet dipi = new TreeSet<>();
+Collections.shuffle(cixu);
+for (int i=0;i<cixu.size();i++){
+    if (i>cixu.size()-4){
+        dipi.add(cixu.get(i));
+    }else if(i%3==0){
+        fqy.add(cixu.get(i));
+    }else if(i%3==1){
+        zmy.add(cixu.get(i));
+    }else {
+        egz.add(cixu.get(i));
+    }
+}
+lookpi("张曼玉",map,zmy);
+lookpi("底牌",map,dipi);
+
+
+}
+public static void lookpi(String name,HashMap<Integer, String> map,TreeSet<Integer> s1){
+System.out.print(name+"的牌是：");
+for (Integer i:s1){
+    System.out.print(map.get(i)+" ");
+}
+System.out.println();
+}
+```
+# 23. File
+## 23.1. File
+### 23.1.1. File类概述和构造方法
+File是文件和目录路径名的抽象表示
+* 文件和目录是可以通过File封装成对象的
+* 对于File而言，其封装的并不是一个真正存在的文件，仅仅是一个路径名而已。它可以是存在的，也可以是不存在的。将来是要通过具体的操作把这个路径的内容转换为具体存在的
+
+|方法名|说明|
+|:---|:---|
+|File(String pathname|通过将给定的路径名字符串转换为抽象路径名来创建新的File实例|
+|File(String parent,String Child)|从**父路径名字字符串**和子路径名字符串创建新的File实例|
+|File(File parent,String child)|从**父抽象路径名**和子路径名字符串创建新的FIle实例|
+
+```java
+File f1 = new File("E:/qqpcmgr_docpro/关于本文件夹的说明2.0.txt");//File类重写了toString方法
+System.out.println(f1);
+File f2 = new File("E:/qqpcmgr_docpro","关于本文件夹的说明2.0.txt");
+System.out.println(f2);
+File f3 = new File("E:/qqpcmgr_docpro");
+File f4 = new File(f3,"关于本文件夹的说明2.0.txt");
+System.out.println(f4);
+```
+### 23.1.2. File类创建功能
+* 同一个文件夹下文件和目录不允许同名，注意到底需要哪个方法！！
+
+|方法名|说明|
+|:---|:---|
+|boolean createNewFile()|当具有该名称的文件不存咋时，创建一个由该抽象路径名命名的新空文件|
+|boolean mkdir()|创建由此抽象路径名命名的目录|
+|boolean mkdirs()|创建由此抽象路径名命名的目录，包括任何必须但不存在的父目录（多级目录）|
+
+```java
+f1.createNewFile()//创建文件时必须保证上级目录存在，否则会报错
+f1.makedirs()
+File f1 = new File("E:/qqpcmgr_docpro/关于本文件夹的说明2.0.txt");
+f1.makdir()//return true;即不能根据文件名判断创建文件是否成功，即使是个文件名，使用创建目录的方式，也能创建成功
+```
+### 23.1.3. File类判断和获取功能
+|方法名|说明|
+|:---|:---|
+|boolean isDirectory()|测试此抽象路径名表示的File是否为目录|
+|boolean isFile()|测试此抽象路径名表示的File是否为文件|
+|boolean exists()|测试此抽象路径名表示的File是否存在|
+|Strng getAbsolutePath()|返回此抽象路径名的绝对路径名字符串|
+|String getPath()|将此抽象路径名转换为路径名字符串|
+|String getName()|返回由此抽象路径名表示的文件或目录的名称|
+|String[] list()|返回此抽象路径名表示的目录中的文件和目录的名称字符串数组|
+|File[] listFiles()|返回此抽象路径名表示的目录中的文件和目录的File对象数组|
+
+```java
+ File f1 = new File("E:\\大学\\java1.txt");
+System.out.println(f1.isDirectory());
+System.out.println(f1.isFile());
+System.out.println(f1.exists());
+
+System.out.println("-----------");
+System.out.println(f1.getAbsolutePath());
+System.out.println(f1.getPath());
+System.out.println(f1.getName());
+System.out.println("-------------");
+File f2 = new File("E:\\大学");
+String[] list = f2.list();
+for (String str:list){
+    System.out.println(str);
+}
+System.out.println("----------");
+File[] files = f2.listFiles();
+for (File f:files){
+    if (f.isFile()){
+        System.out.println(f);
+    }
+//            System.out.println(f.getName());
+}
+```
+### 23.1.4. File类删除功能
+在删除目录前，如果目录中有内容，不能直接删除，需要先将该目录下所有文件/文件夹删除，才能把指定目录删除
+|方法名|说明|
+|:---|:---|
+|boolean delete()|删除由此抽象路径名表示的**文件或目录**|
+绝对路径和相对路径的区别
+* 绝对路径：**完整的路径名**，不要任何其他信息就可以定位它所有表示的文件。
+* 相对路径：必须使用取自其他路径的信息进行解释，如myfile/java.txt
+
+### 23.1.5. 递归
+递归指的是方法定义中调用方法本身的现象
+递归解决问题的思路：
+把一个复杂的问题层层转化为一个**与原问题相似的规模较小**的问题来求解
+递归策略只需**少量的程序**就可以描述出解题过程所需要的多次重复计算
+* 递归不易太深
+```java
+System.out.println(f(20));
+}
+public static int f(int n){
+    if (n==1||n==2){
+        return 1;
+    }else{
+        return f(n-1)+f(n-2);
+    }
+}
+```
+```java
+//求阶乘
+public static int f(int n){
+  if (n==1){
+      return 1;
+  }else{
+      return n*f(n-1);
+  }
+}
+```
+```java
+//遍历目录
+File f1 = new File("E:\\大学");
+getAllFiles(f1);
+
+}
+public static void getAllFiles(File f){
+File[] files = f.listFiles();
+for (File f2:files){
+  if (f2.isFile()){
+      System.out.println(f2.getAbsolutePath());
+  }else {
+      getAllFiles(f2.getAbsoluteFile());
+  }
+}
+}
+```
+## 23.2. I/O流概述和分类
+I/O流概述：
+* IO：输入/输出
+* 流：是一种抽象概念，是对数据传输的总称。也就是说数据在设备间的传输称为流，流的本质是数据传输
+  常见的引用：文件复制，文件上传，文件下载
+* 按照数据类型来分
+    字节流
+      字节输入流；字节输出流
+    字符流
+      字符输入流，字符输出流
+一般来说，我们说IO流的分类是按照**数据类型**来分的
+* 如果数通过Windows自带的记事本软件打开，我们还可以**读懂里面的内容**，就用字符流
+  否则则使用字节流，默认使用字节流
+## 23.3. 字节流写数据
+字节流抽象基类
+* InputStream：这个抽象是表示字节输入流的所有类的超类
+* OutputStream：这个抽象类是表示字节输出流的所有类的超类
+* 子类名特点：子类名称都是以其父类名作为子类名的后缀
+FileOutputStream：文件输出流用于将数据写入File
+* FileOutputStream(String name)：创建文件输出流以指定的名称写入文件
+使用字节输出流写数据的步骤
+* 创建字节输出流对象（调用系统功能创建了文件，创建字节输出流对象，让字节输出流对象指向文件
+* 调用字节输出流对象的写数据方法
+* 释放资源（关闭此文件输出流并释放此流相关联的任何系统资源）
+### 23.3.1. 字节流写数据的3种方法
+|方法名|说明|
+|:---|:---|
+|write(int b)|将指定的字节写入此文件输出流，一次写一个字节数据|
+|write(bytep[] b)|将b.length字节从指定的字节数组写入此文件输出流，一次写一个字节数组数据|
+|write(byte[] b,int off,int len)|将len字节从指定的字节数组开始，从偏移量off开始写入此文件输出流，一次写一个字节数组的部分数据|
+
+```java
+//this(name != null ? new File(name) : null, false);如果不为空，则相当于对字符串进行new File操作，自动封装成File类型
+FileOutputStream fos = new FileOutputStream("E:/大学/fos.txt");
+
+//        fos.write(97);
+//        fos.write(98);
+//        fos.write(99);
+//        fos.write(100);
+//        fos.write(101);
+//        fos.close();
+//            byte[] bys = {97,98,99,100,101,102,103};
+byte[] bys = "abcdefghi".getBytes();
+//            fos.write(bys);
+fos.write(bys,2,4);
+fos.close()
+```
+### 23.3.2. 字节流写数据的两个小问题
+#### 23.3.2.1. 字节流写数据如何实行换行
+fos.write("hello\n".getBytes());//最好使用"/n/r"
+#### 23.3.2.2. 字节流写数据如何实现追加写入
+最好在创建字节流对象时声明追加写入
+FileOutputStream fos = new FileOutputStream("E:/大学/fos.txt",true);//**true**
+### 23.3.3. 字节流写数据加入异常处理
+finally：在异常处理时，提供finally块来执行所有清楚操作，比如说IO流中的释放资源
+特点：被finally控制的语句一定会执行，除非JVM退出
+```java
+try{
+
+}caath(异常类名 变量名){
+  异常处理的代码
+}finally{
+  执行所有清楚操作;
+}
+//了解，实际使用直接抛出最好
+FileOutputStream fos = null;
+try {
+    fos = new FileOutputStream("E:/大学/foggg.txt", true);
+    fos.write("hello".getBytes());
+} catch (IOException e) {
+    e.printStackTrace();
+} finally {
+    if (fos != null) {
+        try {
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+### 23.3.4. 字节流读数据（一次读一个字节数据）
+需求：把文件fos.txt中的内容读取出来并在控制台输出
+FIleInputStream：从文件系统中的文件获取输入字节
+* FileInputStream(String name):通过打开与实际文件的连接来创建一个FIleInputStream，该文件系统中的路径名name命名
+
+使用字节流读数据的步骤  
+① 创建字节输入流对象
+② 调用字节输入流对象的读取数据方法
+③ 释放资源
+```java
+FileInputStream fis = new FileInputStream("E:/大学/fos.txt");
+int by;
+while ((by=fis.read())!=-1){//(by=fis.read())!=-1：首先赋值，然后将赋值后的by变量与-1进行比较
+    System.out.print((char) by);
+}
+```
+#### 23.3.4.1. 复制文本文件
+```java
+FileInputStream fis = new FileInputStream("E:/大学/窗里窗外.txt");
+FileOutputStream fos = new FileOutputStream("src/com/File/IO/窗里窗外.txt");
+int by;
+while ((by=fis.read())!=-1) {
+    fos.write((char)by);
+}
+fis.close();
+fos.close();
+```
+### 23.3.5. 字节流读数据（一次读一个字节数组数据）
+使用字节输入流读数据的步骤
+① 创建字节输入流对象
+② 调用字节输入流对象的读取数据方法
+③ 释放资源
+```java
+byte[] bys = new byte[1024];//一般给1-24和整数倍
+int len = fis.read(bys);
+//len为实际读取的符号的个数，包含/r /n等。当len=-1时读到文件末尾
+// 当读入数据不够数组大小时，读入数组大小与剩余字符大小相等
+// 因为字符串长度为5，当最后字符长度不足5时只会覆盖读入len个数的字符，为了防止显示错误，
+//每次读入的字符串实际为new String(bys,0,len)!!!!!!!!!!!!!
+System.out.println(new String(bys));
+```
+#### 23.3.5.1. 复制图片
+思路：
+① 根据数据源创建字节输入流对象
+② 根据目的地创建字节输出流对象
+③ 读写数据，复制图片（一次读入一个字节数组，一次写入一个字节数组）
+④ 释放资源
+```java
+FileInputStream fis = new FileInputStream("E:/大学/copy.jpg");
+FileOutputStream fos = new FileOutputStream("src/com/File/IO/copy.jpg");
+
+byte[] by = new byte[1024];
+int len;
+while ((len=fis.read(by))!=-1){
+    fos.write(by,0,len);
+}
+fis.close();
+fos.close();
+```
+## 23.4. 字节缓冲流（具体类）
+* BufferedOuputStream：该类实现缓冲输出流。通过设置这样的输出流，应用程序可以向底层输出流写入字节，而不必为写入的每个字节导致底层系统被调用
+* BufferedInputStream：创建BufferedInputStream将创建一个内部缓冲区数组。当从流中读取或跳过字节时，内部缓冲区将根据需要从所包含的输入流中重新填充，一次很多字节
+构造方法：
+* 字节缓冲输出流：BufferedOutputStream(OutputStream out)
+* 字节缓冲输入流：BufferedInputStream(InputStream in)
+为什么构造方法需要的是字节流，而不是具体的文件或文件路径呢？
+* 字节缓冲流仅仅提供缓冲区，而真正的读写数据还得依靠基本的字节流对象及逆行操作
+#### 23.4.0.2. 字节流复制视频（缓冲区的好处）
+```java
+//  小马小车时间：41260
+//  小马大车时间：45
+//  大马小车时间：50
+//  大马大车时间：11
+mp41();
+mp42();
+mp43();
+mp44();
+
+public static void mp41() throws IOException {
+FileInputStream fis = new FileInputStream("E:/大学/gta.mp4");
+FileOutputStream fos = new FileOutputStream("src/com/File/IO/t1.mp4");
+int by;
+while ((by=fis.read())!=-1){
+    fos.write(by);
+}
+fis.close();
+fos.close();
+}
+public static void mp42() throws IOException {
+FileInputStream fis = new FileInputStream("E:/大学/gta.mp4");
+FileOutputStream fos = new FileOutputStream("src/com/File/IO/t2.mp4");
+
+byte[] bys = new byte[1024];
+int len;
+while((len=fis.read(bys))!=-1){
+    fos.write(bys,0,len);
+}
+fis.close();
+fos.close();
+}
+public static void mp43() throws IOException {
+BufferedInputStream bis = new BufferedInputStream(new FileInputStream("E:/大学/gta.mp4"));
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("src/com/File/IO/t3.mp4"));
+
+int by;
+while ((by=bis.read())!=-1){
+    bos.write(by);
+}
+bos.close();
+bis.close();
+}
+public static void mp44() throws IOException {
+BufferedInputStream bis = new BufferedInputStream(new FileInputStream("E:/大学/gta.mp4"));
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("src/com/File/IO/t4.mp4"));
+
+byte[] nys = new byte[1024];
+int len;
+while ((len = bis.read(nys))!=-1){
+    bos.write(nys,0,len);
+}
+bis.close();
+bos.close();
+}
+```
+## 23.5. 字符流
+需求：字节流读文本文件数据时
+一个汉字存储：
+* 如果是GBK编码，占用2字节
+* 如果是UTF-8编码，占用3个字节
+最终读取的一个个字节与中文2或4个字节不相符，无法正常显示
+为什么会出现字符流：由于字节流操作中文不是特别方便，所以Java就提供字符流
+* 字符流 = 字节流+编码表
+用字节流复制文本时，文本文件也有中文，但是没有问题，原因是最终底层操作会自动进行字节拼接成中文，如何识别是中文呢？
+* 汉字在存储时，无论哪种编码存储，第一个字节都是负数
+### 23.5.1. 编码表
+基础知识：
+* 计算机中存储的信息都是二进制数表示的，所有字符都是二进制数转换之后的结果
+* 按照某种规则，将字符串存储到计算机中，称为编码。反之，将存储在计算机中的二进制数按照某种规则解析显示出来，称为解码。
+* 按照A编码存储，必须按照A编码解析，这样才能显示正确的文本符号，否则会导致乱码现象
+    字符编码：就是一套自然语言的字符与二进制数之间的对应规则(A,65)
+* 字符集是一个系统支持的所有字符的集合，包括各国家文字、标点符号、圆形符号、数字等
+* 计算机要准确的存储和识别各种字符串符号，就需要进行字符编码，一套字符集必然至少有一套字符编码。
+##### 23.5.1.0.1. 常见字符集有ASCII字符集、GBXXX字符集、Unicode字符集等
+* ASCII（美国信息交换标准代码）字符集：是基于拉丁字母的一套电脑编码系统，用于显示现代英语，主要包括控制字符（回车、退格、换行键等）和可显示字符（英文大小写字符、阿拉伯数字和西文符号）
+  * 基本的ASCII字符集，使用7位表示一个字符，共128字符。ASCII的拓展字符集使用8位表示一个字符，共256字符，方便支持欧洲常用字符。是一个系统支持的所有字符的集合，包括各国家文字、标点符号、图像符号、数字等
+* GBXXX字符集
+  * GB2312：简体中文码表。一个小于127的字符的意义与原来相同，但两个大于127的字符连在一起时，就表示一个汉字，包含6000多个汉字，即”全角“字符，而原来在127号以下的那些就叫”半角“字符了
+  * GBK：最常用的中文码表。是在GB2312标准基础上的拓展规范，使用了双字节编码方案，共收录了21003个汉字，完全兼容GB2312标准，同时支持繁体汉字以及日韩汉字等
+  * FB18030：最新的中文编码表。收录70244个，采用多字节比编码，每个字可以由1个、2个或4个字节组成。支持中国国内少数民族的文字以及繁体汉字和日韩汉字等
+* Unicode字符集
+  * 为表达任意语言的任意字符而设计的，是业界的标准，也成为统一码、标准万国码。它最多使用4个字节的数字来表达每个字母、符号、或者数字。有三种编码方案，UTF-8、UTF-16和UTF-32.最为常用的是UTF-8编码
+  * UTF-8编码：可以用来表示Unicode标准中任意字符，它是电子邮件、网页及其他存储或传送文字的应用中优先采用的编码。它使用1-4个字节为每个字符编码
+  * 编码规则
+    * 128个US-ASCII字符，只需一个字节编码
+    * 拉丁文等字符，需要二个字节编码
+    * 大部分常用字（含中文),使用三个字节编码
+    * 其他极少使用的Unicode辅助字符，使用四字节编码
+* 采用什么规则编码，就要用什么规则解码
+### 23.5.2. 字符串中的编码解码问题
+字符串抽象基类
+* Reader：字符输入流的抽象类
+* Writer：字符输出流的抽象类
+字符流中和编码、解码相关的两个类
+* InputStreamReader：是从字节流到字符流的桥梁，它读取字节，并使用指定的charset将其解码为字符，可以指定字符集
+* OutputStreamWriter：是从字符流到字节流的桥梁，使用的字符集可以由名称指定，也可以被明确指定，或者可以接受平台的默认字符集
+```java
+OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("src/com/File/IO/osw.txt"),"GBK");
+osw.write("中国");
+osw.close();
+InputStreamReader isr = new InputStreamReader(new FileInputStream("src/com/File/IO/osw.txt"),"GBK");
+int ch;
+while((ch=isr.read())!=-1){
+    System.out.print((char) ch);
+}
+isr.close();
+```
+### 23.5.3. 字符流写数据的5种方式
+|方法名|说明|
+|:---|:---|
+|write(int c)|写一个字符|
+|write(char[] cbuf])|写入一个字符数组|
+|write(String str)|写一个字符串|
+|write(String str,int off,int len)|写一个字符串的一部分|
+```java
+OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("src/com/File/IO/osw.txt"),"GBK");
+osw.write(57);
+char[] chs = {'a','b','c','d'};
+osw.write(chs);//写入字符数组
+osw.write(chs,0,3);//写入字符数组
+osw.write("哈哈哈");//写入字符串
+osw.write("卧虎阿萨哈哈哈哈哈",0,2);//写入字符串一部分
+osw.flush();//刷新流，写入后还在缓冲区，使用flush进行刷新
+osw.close();//关闭前先刷新
+```
+### 23.5.4. 字符流读数据的两种方式
+|方法名|说明|
+|:---|:---|
+|int read()|一次读一个字符数据|
+|int read(char[] cbuf)|一次读一个字符数组数据|
+```java
+InputStreamReader isr = new InputStreamReader(new FileInputStream("src/com/File/IO/osw.txt"),"GBK");
+//        int ch;//字节流
+//        while((ch=isr.read())!=-1){
+//            System.out.print((char) ch);
+//        }
+char[] chs = new char[1024];//字符流
+int len;
+while((len=isr.read(chs))!=-1){
+    System.out.print(new  String(chs,0,len));
+}
+isr.close();
+```
+#### 23.5.4.1. 复制java文件
+```java
+InputStreamReader isr = new InputStreamReader(new FileInputStream("src/com/FIle/IO/HuanChongDemo.java"), "UTF-8");
+OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream("src/com/File/IO/Copy.java"),"UTF-8");
+
+char[] chs = new char[1024];
+int len;
+while ((len=isr.read(chs))!=-1){
+osw.write(new String(chs,0,len));
+}
+isr.close();
+osw.close();
+```
+#### 23.5.4.2. 复制java文件简化升级版
+* 转换流的名字比较长，而我们常见的操作都是按照本地默认编码实现的，所以为了简化书写，转换流提供了对应的子类
+* FileReader：用于读取字符文件的便携类
+  FileReader(String fileName)
+* FileWriter：用于写入字符文件的便携类
+  FileWrite(String fileName)
+* 数据源分析
+  数据源：读数据--Reader--InputStreamReader--FileReader（不能具体编解码）
+  目的地：写数据--Writer==OutputStreamWriter--FileWriter（不能具体编解码）
+```java
+FileReader fr = new FileReader("src/com/FIle/IO/HuanChongDemo.java");
+FileWriter fw = new FileWriter("src/com/FIle/IO/Copylite.java");
+
+int dy;
+while ((dy = fr.read())!=-1){
+    fw.write(dy);
+}
+
+char[] chs = new char[1024];
+int len;
+while((len=fr.read(chs))!=-1){
+    fw.write(new String(chs,0,len));}
+    
+fr.close();
+fw.close();
+```
+### 23.5.5. 字符缓冲流
+* BufferedWriter：将文本写入字符输出流，缓冲字符，以提供单个字符，数组和字符串的高效写入，可以指定缓冲区大小，或者可以接受默认大小。默认值足够大，可以用于大多数用途
+* BufferReader：从字符输入流读取文本，缓冲字符，以提供字符，数组和行的高效读取，可以指定缓冲区大小，或者可以使用默认大小。默认值足够大，可用于大多数用途
+构造方法：
+* BufferedWriter(Writer out)
+* BufferReader(Reader in)
+```java
+BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/File/IO/osw.txt"));
+bw.write("nihao\r\n");
+bw.write(23);
+bw.flush();
+bw.close();
+File file;
+BufferedReader br = new BufferedReader(new FileReader("src/com/File/IO/osw.txt"));
+char[] chs = new char[1024];
+int len;
+while ((len=br.read(chs))!=-1){
+    System.out.println(new String(chs,0,len));
+}
+br.close();
+```
+### 23.5.6. 字符缓冲流的特有功能
+BufferedWriter：
+* void newLine():写一行行分隔符，行分隔符字符串由系统属性定义
+BufferedReader：
+* String readLine()：读一行文字。结果包含行的内容的字符串，不包括任何行终止字符，如果流的结尾已经到达，则为null
+```java
+BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/File/IO/osw.txt"));
+for(int i=0;i<10;i++) {
+    bw.write("nihao"+i);
+    bw.newLine();
+    bw.flush();
+}
+bw.close();
+
+BufferedReader br = new BufferedReader(new FileReader("src/com/File/IO/osw.txt"));
+String s;
+while((s=br.readLine())!=null){
+    System.out.println(s);//这里打印时用ln的方法自动换行了!!!!!!!
+}
+br.close();
+```
+#### 23.5.6.1. IO流小结
+字节流：
+![IO流小结1](IO流小结1.png)
+字符流：
+![IO流小结2](IO流小结2.png)
+#### 23.5.6.2. 集合到文件
+要求：把ArrayList集合中的字符串数据写入到文本文件，要求：每个字符串元素作为文件中的一行数据
+① 创建ArrayList集合
+② 往集合中存储字符串元素
+③ 创建字符缓冲输出流对象
+④ 遍历集合，得到每一个字符串数据
+⑤ 调用字符串缓冲输出流对象的方法写数据
+⑥ 释放资源
+```java
+ArrayList<String> array = new ArrayList<>();
+array.add("hello");
+array.add("world");
+array.add("java");
+
+BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/File/IO/arraylist.txt"));
+for(String s:array){
+  bw.write(s);
+  bw.newLine();
+  bw.flush();
+}
+bw.close();
+```
+#### 23.5.6.3. 文件到集合
+把文本文件中的数据读取到集合中，并遍历集合。文件中每一行数据是一个集合元素
+```java
+BufferedReader brd = new BufferedReader(new FileReader("src/com/File/IO/arraylist.txt"));
+ArrayList<String> array = new ArrayList<>();
+String s;
+while((s=brd.readLine())!=null){
+    array.add(s);
+}
+brd.close();
+System.out.println(array);
+```
+#### 23.5.6.4. 字符串分割    String[]str2 =  str1.split(",");
+#### 23.5.6.5. 字符串转Integer格式  int num = Integer.parseInt(String)
+#### 23.5.6.6. ArrayList中的对象按照指定格式存储到文件
+```java
+String str1 = "123,134,12412";
+String[]str2 =  str1.split(",");
+for (String s:str2){
+  System.out.println(s);
+}
+Student s1 = new Student("大狗子","22","123","北京");
+Student s2 = new Student("二狗子","23","1241","北京");
+Student s3 = new Student("三狗子","24","15234","北京");
+Student s4 = new Student("四狗子","25","21533","北京");
+
+ArrayList<Student> array = new ArrayList<>();
+array.add(s1);
+array.add(s2);
+array.add(s3);
+array.add(s4);
+BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/File/IO/student1.txt"));
+//        for (Student s:array){
+//            bw.write(s.toString());
+//            bw.newLine();
+//            bw.flush();
+//        }
+for (Student s:array){
+  StringBuilder sb = new StringBuilder();
+  sb.append(s.getID()).append(',').append(s.getName()).append(",,,").append(s.getAge()).append(',').append(s.getAddress());
+  bw.write(sb.toString());
+  bw.newLine();
+  bw.flush();
+}
+bw.close();
+```
+#### 集合到文件（数据排序改进版）
+键盘录入5个学生信息，姓名，语文、数学、外语。要求按照成绩总分从高到低写入文件
+格式：姓名，语文乘积，数学成绩，英语成绩
+```java
+Studenta s1 = new Studenta("林青霞", 45, 63, 76);
+Studenta s2 = new Studenta("二狗子", 45, 64, 75);
+Studenta s3 = new Studenta("三狗子", 46, 64, 76);
+
+TreeSet<Studenta> studentSet = new TreeSet<>(new Comparator<Studenta>() {
+    @Override
+    public int compare(Studenta o1, Studenta o2) {//传入的第一个对象是新的对象，即比较对象
+        int num = o1.getChinese()+o1.getEnglish()+o1.getMath()-o2.getMath()-o2.getChinese()-o2.getEnglish();
+        num = num==0?(o1.getChinese()-o2.getChinese()):num;
+        num = num==0?(o1.getMath()-o2.getMath()):num;
+        num = num==0?(o1.getName().compareTo(o2.getName())):num;
+        return -num;
+    }
+});
+studentSet.add(s1);
+studentSet.add(s2);
+studentSet.add(s3);
+BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/File/IO/Studentall.txt"));
+for (Studenta s:studentSet){
+    StringBuilder sb = new StringBuilder();
+    sb.append(s.getName()).append(',').append(s.getChinese()).append(',').append(s.getMath()).append(',').append(s.getEnglish());
+    bw.write(sb.toString());
+    bw.newLine();
+    bw.flush();
+}
+bw.close();
+```
+### 复制文件的异常处理
+JDK7改进方案：
+try(定义流对象){
+  可能出现异常的代码;
+}catch(异常类名 变量名){
+  异常处理的代码;
+}//自动释放处理
+JDK9改进方案：//不建议使用
+定义输入流对象;
+定义输出流对象;
+try(输入流对象;输出流对象){
+  可能出现异常的代码;
+}catch(异常类名 变量名){
+  异常的处理代码;
+}
+自动释放资源
+```java
+//JDK7改进方案
+try(BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destFiles));
+    BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));) {
+    byte[] bys = new byte[1024];
+    int len;
+    while ((len = bis.read(bys)) != -1) {
+        bos.write(bys, 0, len);
+    }
+}catch (IOException e){
+    e.printStackTrace();
+}
+//原版加throws IOException
+BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destFiles));
+BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));
+
+byte[] bys = new byte[1024];
+int len;
+while ((len = bis.read(bys)) != -1) {
+    bos.write(bys, 0, len);
+}
+bos.close();
+bis.close();
+```
+## 特殊操作流
+### 标准输入输出流
+System类中有两个静态成员变量
+* public static final InputStream in：标准输入流。通常该流对应于键盘输入或主机环境或用户指定的另一个输入源
+* publuc static final PrintStream out：标准输出流。通常该流对应于显示输出或主机环境或用户指定的另一个输出目标
+```java
+//自己实现键盘输入太麻烦了，java提供一个类实现键盘输入
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+String str;
+while ((str=br.readLine())!=null){
+    System.out.print(str);
+    System.out.println();
+}
+//System.out的本质是一个字节输出流
+PrintStream ps = new PrintStream(System.out);
+ps.println("你好");
+ps.println(199);
+ps.print()//该语句不能使用
+```
+### 打印流
+打印流分类
+* 字节打印流：PrintStream
+* 字符打印流：PrintWriter
+打印流的特点
+* 只负责输出数据，不负责读取数据
+* 有自己的特有方法
+字节打印流
+* PrintStream(String fileName):使用指定的文件名创建新的打印流
+* 使用继承父类方法写数据，查看的时候会转码；使用字节特有的方法print/println写数据，查看的数据原样输出
+字符打印流
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 复制多级文件夹
+```java
+public static void main(String[] args) throws IOException {
+    File srcFile = new File("E:\\复制");
+    File destFiles = new File("src\\com\\File\\IO");
+    copyfolder(srcFile, destFiles);
+}
+
+private static void copyfolder(File srcFile, File destFiles) throws IOException {
+    if (srcFile.isDirectory()) {
+        String srcFileName = srcFile.getName();
+        File newFolder = new File(destFiles, srcFileName);
+        if (!newFolder.exists()) {
+            newFolder.mkdir();
+        }
+        File[] files = srcFile.listFiles();
+        for (File file : files) {
+            copyfolder(file, newFolder);//针对目录
+        }
+    } else {
+        File newFile = new File(destFiles, srcFile.getName());
+        System.out.println(newFile);
+        copy(srcFile, newFile);
+    }
+}
+
+private static void copy(File srcFile, File destFiles) throws IOException {
+    BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(destFiles));
+    BufferedInputStream bis = new BufferedInputStream(new FileInputStream(srcFile));
+
+    byte[] bys = new byte[1024];
+    int len;
+    while ((len = bis.read(bys)) != -1) {
+        bos.write(bys, 0, len);
+    }
+    bos.close();
+    bis.close();
+
+}
+```
