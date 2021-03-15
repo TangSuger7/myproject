@@ -244,12 +244,58 @@
       - [23.5.6.4. 字符串分割    String[]str2 =  str1.split(",");](#23564-字符串分割----stringstr2---str1split)
       - [23.5.6.5. 字符串转Integer格式  int num = Integer.parseInt(String)](#23565-字符串转integer格式--int-num--integerparseintstring)
       - [23.5.6.6. ArrayList中的对象按照指定格式存储到文件](#23566-arraylist中的对象按照指定格式存储到文件)
-      - [集合到文件（数据排序改进版）](#集合到文件数据排序改进版)
-    - [复制文件的异常处理](#复制文件的异常处理)
-  - [特殊操作流](#特殊操作流)
-    - [标准输入输出流](#标准输入输出流)
-    - [打印流](#打印流)
-- [复制多级文件夹](#复制多级文件夹)
+      - [23.5.6.7. 集合到文件（数据排序改进版）](#23567-集合到文件数据排序改进版)
+    - [23.5.7. 复制文件的异常处理](#2357-复制文件的异常处理)
+  - [23.6. 特殊操作流](#236-特殊操作流)
+    - [23.6.1. 标准输入输出流](#2361-标准输入输出流)
+    - [23.6.2. 打印流](#2362-打印流)
+    - [23.6.3. 对象序列化流](#2363-对象序列化流)
+    - [23.6.4. 对象序列化流（Out）](#2364-对象序列化流out)
+    - [23.6.5. 对象反序列化流（In）ObjectInputStream](#2365-对象反序列化流inobjectinputstream)
+    - [23.6.6. 对象序列化流几个问题](#2366-对象序列化流几个问题)
+    - [23.6.7. Properties](#2367-properties)
+    - [23.6.8. Properties作为集合的特有方法](#2368-properties作为集合的特有方法)
+    - [23.6.9. Properties和IO流结合的方法](#2369-properties和io流结合的方法)
+      - [23.6.9.1. 猜数字本地文件限制次数](#23691-猜数字本地文件限制次数)
+- [24. 复制多级文件夹](#24-复制多级文件夹)
+- [25. 多线程](#25-多线程)
+  - [25.1. 实现多线程](#251-实现多线程)
+    - [25.1.1. 进程](#2511-进程)
+    - [25.1.2. 线程](#2512-线程)
+    - [25.1.3. 多线程的实现方式一](#2513-多线程的实现方式一)
+    - [25.1.4. 设置和获取线程名称](#2514-设置和获取线程名称)
+    - [25.1.5. 线程调度](#2515-线程调度)
+    - [25.1.6. 线程控制](#2516-线程控制)
+    - [25.1.7. 线程生命周期](#2517-线程生命周期)
+    - [25.1.8. 多线程的实现方式二](#2518-多线程的实现方式二)
+  - [25.2. 线程同步](#252-线程同步)
+      - [25.2.0.1. 卖票](#25201-卖票)
+      - [25.2.0.2. 卖票案例中数据安全问题的解决](#25202-卖票案例中数据安全问题的解决)
+    - [25.2.1. 同步代码块](#2521-同步代码块)
+    - [25.2.2. 同步方法](#2522-同步方法)
+    - [25.2.3. 线程安全的类](#2523-线程安全的类)
+    - [25.2.4. Lock锁（接口）](#2524-lock锁接口)
+  - [25.3. 生产者消费者](#253-生产者消费者)
+    - [25.3.1. 生产者消费者模式概述](#2531-生产者消费者模式概述)
+    - [生产者消费者模式概述](#生产者消费者模式概述)
+    - [生产者和消费者案例](#生产者和消费者案例)
+- [网络编程](#网络编程)
+  - [网络编程入门](#网络编程入门)
+    - [网络编程概述](#网络编程概述)
+    - [网编程三要素](#网编程三要素)
+    - [IP地址](#ip地址)
+    - [InetAddress的使用](#inetaddress的使用)
+    - [端口](#端口)
+    - [协议](#协议)
+  - [UDP通信程序](#udp通信程序)
+    - [UDP通信原理](#udp通信原理)
+    - [UDP发送数据](#udp发送数据)
+    - [UDP接收数据](#udp接收数据)
+      - [UDP通信案例](#udp通信案例)
+  - [TCP通信程序](#tcp通信程序)
+    - [TCP通信原理](#tcp通信原理)
+    - [TCP发送数据](#tcp发送数据)
+    - [TCP接收数据](#tcp接收数据)
 
 <!-- /TOC -->
 # 1. 前置教程
@@ -2555,7 +2601,7 @@ for (Student s:array){
 }
 bw.close();
 ```
-#### 集合到文件（数据排序改进版）
+#### 23.5.6.7. 集合到文件（数据排序改进版）
 键盘录入5个学生信息，姓名，语文、数学、外语。要求按照成绩总分从高到低写入文件
 格式：姓名，语文乘积，数学成绩，英语成绩
 ```java
@@ -2586,7 +2632,7 @@ for (Studenta s:studentSet){
 }
 bw.close();
 ```
-### 复制文件的异常处理
+### 23.5.7. 复制文件的异常处理
 JDK7改进方案：
 try(定义流对象){
   可能出现异常的代码;
@@ -2626,8 +2672,8 @@ while ((len = bis.read(bys)) != -1) {
 bos.close();
 bis.close();
 ```
-## 特殊操作流
-### 标准输入输出流
+## 23.6. 特殊操作流
+### 23.6.1. 标准输入输出流
 System类中有两个静态成员变量
 * public static final InputStream in：标准输入流。通常该流对应于键盘输入或主机环境或用户指定的另一个输入源
 * publuc static final PrintStream out：标准输出流。通常该流对应于显示输出或主机环境或用户指定的另一个输出目标
@@ -2645,7 +2691,7 @@ ps.println("你好");
 ps.println(199);
 ps.print()//该语句不能使用
 ```
-### 打印流
+### 23.6.2. 打印流
 打印流分类
 * 字节打印流：PrintStream
 * 字符打印流：PrintWriter
@@ -2655,43 +2701,173 @@ ps.print()//该语句不能使用
 字节打印流
 * PrintStream(String fileName):使用指定的文件名创建新的打印流
 * 使用继承父类方法写数据，查看的时候会转码；使用字节特有的方法print/println写数据，查看的数据原样输出
-字符打印流
+字符打印流 PrintWriter
+* 是一个字符输出流，字符打印流的构造方法
+  |方法名|说明|
+  |:---|:---|
+  |PrintWriter(String fileNmae)|使用指定的文件名创建一个新的 PrintWriter，而不需要自动执行刷新|
+  |PrintWriter(Sriter out,boolean autoFlush)|创建一个新的PrintWriter<br>out:字符输出流<br>autoFlush:一个布尔值，如果为真则Println，printf或者format()方法将刷新输出缓冲区|
+```java
+PrintWriter pw = new PrintWriter("src/com/File/TSIO/pw.txt");
+//        pw.write("hellp");//既然是字符流，就需要进行刷新
+//        pw.flush();
+PrintWriter pw2 = new PrintWriter(new FileWriter("src/com/File/TSIO/pw.txt"),true);//自动刷新
+pw2.println("hahaha");
+pw2.write("hello");//write不会自动刷新
+```
+### 23.6.3. 对象序列化流
+对象序列化：就是将对象保存到磁盘中，或者在网络中传输对象
+这种机制就是使用一个字节序列表示一个对象，该字节序列包含：对象的类型，对象的数据和对象中存储的属性等信息
+字节序列写到文件后，相当于文件中持久保存了一个对象的信息
+反之，该字节序列还可以从文件中读取回来，重构对象，对它进行反序列化
+
+要实现序列化和反序列化就要使用对象序列化流和对象反序列化流：
+* 对象序列化流：ObjectOutputStream
+* 对象反序列化流：ObjectInputStream
+### 23.6.4. 对象序列化流（Out）
+对象序列化流：ObjectOutputStream
+* 将Java对象的原始数据类型和图形写入OutputStream，可以使用ObjectInputStream读取（重构对象）。可以通过使用流的文件夹来实现对象的持久存储。如果流是网络套接字流，则可以在另一个主机上或另一个进程中重构对象
+构造方法：
+* ObjectOutputStream(OutputStream out):创建一个写入指定的OutputStream的ObjectOutputSream
+序列化对象的方法
+* void writeObhect(Object obj):将指定的对象写入ObjectOutputStream
+**<font color='red'>注意:</font>**
+* 一个对象要想被序列化，该对象所属的类必须实现Serializable接口
+* Serializable是一个**标记接口**，实现该接口不需要重写任何方法
+### 23.6.5. 对象反序列化流（In）ObjectInputStream
+* ObjectInputStream反序列化先前使用ObjectOutputStream编写的原始数据和对象
+构造方法
+* ObjectInputStream(InputStream in)：创建从指定的NInputStream读取的ObjectInputStream
+反序列化对象的方法：
+* ObjectreadObject()：从ObjectInputStream读取一个对象
+```java
+//子类
+public class Student implements Serializable 
+//写入
+ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/com/File/TSIO/Student.txt"));
+Student s = new Student("林青霞",33);
+oos.writeObject(s);//NotSerializableException
+oos.close();
+//读取
+ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream("src/com/File/TSIO/Student.txt")));
+Object o = ois.readObject();
+Student s= (Student) o;
+System.out.println(s);
+ois.close();
+```
+### 23.6.6. 对象序列化流几个问题
+* 用对象序列化流序列化了一个对象后，假如我们修改了对象所属的类文件，读取数据会不会出现问题？
+InvalidClassException: 
+com.File.TSIO.Student; local class incompatible: 
+stream classdesc serialVersionUID = 43, 
+local class serialVersionUID = 6255856292533292297
+InvalidClassException：
+  Serialization运行时检测到类的以下问题之一时抛出。 
+    该类的串行版本与从流中读取的类描述符的版本不匹配 
+    该类包含未知的数据类型 
+    该类没有可访问的no-arg构造函数 
+
+* 如果出现了问题，如何解决
+  给对象所属对象加一个值，private static final long serialVersionUID = 43L;//必须为static，final和long类型的字段
+* 如果一个对象中某个成员变量的值不想被序列化，又该如何实现？
+  private transient int age;//输出时对变量使用关键字transient，则保存时会将该变量转为默认值，此时age为0
+### 23.6.7. Properties
+该类表示一组持久的属性。Properties可以保存到缓冲流中或从流中加载。属性列表中的每个键都是一个字符串。
+```java
+Properties ppos = new Properties();//这个类不是泛型的
+ppos.put("1t1","林青霞");
+ppos.put("1t2","张曼玉");
+ppos.put("1t3","王祖贤");
+
+Set<Object> keySet = ppos.keySet();
+for(Object k:keySet){
+    Object value = ppos.get(k);
+    System.out.println(k+","+value);
+}
+```
+### 23.6.8. Properties作为集合的特有方法
+通过接收String字符串作为put的对象，实现集合的输入只能是字符串的效果
+|方法名|说明|
+|:---|:---|
+|Object setProperty(String key,String value)|设置集合的键和值，都是String型，底层调用Hashtable方法put|
+|String getProperty(String key)|使用此属性列表中指定的键搜索属性|
+|Set<String> stringPropertyNames()|从该属性列表中返回一个不可修改的键集，其中键及其对应的值是字符串| 
+### 23.6.9. Properties和IO流结合的方法
+|方法名|说明|
+|:---|:---|
+|void load(InputStream inStream)|从输入字节流读取属性列表（键和元素对）|
+|<font color='red'>void load(Reader reaader)|从输入字符流读取属性列表|
+|void store(OutputStream out,String comments)|将此属性列表（键和元素对）写入此Properties表中，以适合于使用load(InputStream)方法的格式写入输出字节流|
+|<font color='red'>void store(Writer writer,String comments)|将此属性列表（键和元素对）写入此Properties表中，以适合使用load(Reaader)方法的格式写入输出字符流|
+```java
+public static void main(String[] args) throws IOException {
+    myStore();
+    myLoad();
+}
+
+private static void myLoad() throws IOException {
+    Properties ppos = new Properties();
+
+    FileReader fr = new FileReader("src/com/File/TSIO/fw.txt");
+    ppos.load(fr);
+    System.out.println(ppos);
+    fr.close();
+}
+
+private static void myStore() throws IOException {
+    Properties ppos = new Properties();
+    FileWriter fw = new FileWriter("src/com/File/TSIO/fw.txt");
+    ppos.setProperty("ite01", "大狗子");
+    ppos.setProperty("tang2", "二狗子");
+    ppos.setProperty("tang3", "三狗子");
+
+    ppos.store(fw, null);
+    fw.close();
+}
+```
+#### 23.6.9.1. 猜数字本地文件限制次数
+```java
+public static void main(String[] args) throws IOException {
+FileExist();
+Properties prop = new Properties();
+FileReader fr = new FileReader("src/com/File/TSIO/game.txt");
+prop.load(fr);
+fr.close();
+
+String count = prop.getProperty("count");
+int number = Integer.parseInt(count);
+if (number >= 3) {
+    System.out.println("游戏试玩已结束");
+} else {
+    SelectNum.selectnumber();
+    number++;
+    prop.setProperty("count", String.valueOf(number));
+    FileWriter fw = new FileWriter("src/com/File/TSIO/game.txt");
+    prop.store(fw, null);
+    fw.close();
+}
 
 
+}
 
+private static void FileExist() throws IOException {
+try {
+    FileReader fw = new FileReader("src/com/File/TSIO/game.txt");
+    Properties ppos = new Properties();
+    ppos.load(fw);
+    System.out.println(ppos);
+    fw.close();
+} catch (FileNotFoundException e) {
+    FileWriter fw = new FileWriter("src/com/File/TSIO/game.txt");
+    Properties ppos = new Properties();
+    ppos.setProperty("count", "0");
+    ppos.store(fw, null);
+    fw.close();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 复制多级文件夹
+}
+```
+# 24. 复制多级文件夹
 ```java
 public static void main(String[] args) throws IOException {
     File srcFile = new File("E:\\复制");
@@ -2731,3 +2907,359 @@ private static void copy(File srcFile, File destFiles) throws IOException {
 
 }
 ```
+# 25. 多线程
+## 25.1. 实现多线程
+### 25.1.1. 进程
+进程是正在运行的程序
+* 是系统进行资源分配和调用的独立单位
+* 每一个进程都有它自己的内存空间和系统资源
+### 25.1.2. 线程
+是进程中的单个顺序控制流，是一条执行路径
+* 单线程：一个进程如果只有一条执行路径，则称为单线程
+* 多线程：一个进程如果有多条执行路径，则称为多线程
+### 25.1.3. 多线程的实现方式一
+方式1：继承Thread类
+* 定义一个类MyThread继承Thread类
+* 在MyThread类中重写run()方法
+* 创建MyThread类的对象
+* 启动线程
+两个小问题
+* 为什么要重写run()方法呢？
+  * 因为run()是用来封装被线程执行的代码
+* run()方法和start()方法的区别
+  * run():封装相乘执行的代码，直接调用，相当于普通方法的调用
+  * start()：启动线程；然后由JVM调用此线程的run()方法
+### 25.1.4. 设置和获取线程名称
+Thread类中设置和获取线程名称的方法
+* void setName(String name):将此线程的名称更改为等于参数name
+* String getName():返回此线程的名称
+如何获取main()方法所在线程的名称？
+* public static Thread currentThread():返回对当前正在执行的线程对象的引用
+```java
+//带参构造方法在Thread中，如果想在测试类中为Thread赋名称，需要在Thread子类中继承Thread同时重写带参构造方法并使用super(name)继承。
+MyThread my1 = new MyThread("飞机");
+
+//        my1.setName("飞机");
+//        my1.run();//并没有启动进程
+//        my1.start();
+//static Thread currentThread()返回对当前正在执行的线程对象的引用
+```
+### 25.1.5. 线程调度
+线程有两种调度模型
+* 分时调度模型：所有线程轮流使用CPU的使用权，平均分配每个线程占用CPU的时间片
+* 抢占式调整：优先让优先级高的线程使用CPU，如果线程的优先级相同，那么会随机选择一个，优先级高的线程获取的CPU时间片相对多一些
+* Java使用的是抢占式调度模型
+  假如计算机只有一个CPU，那么CPU在某一个时刻只能执行一条命令，线程只有得到CPU时间片，也就是使用权，才可以执行指令。所以说多线程的程序执行的是有随机性的，因为谁抢到CPU的使用权是不一定的
+
+Thread类中设置和获取线程优先级的方法：
+* public final int getPriority():返回此线程的优先级
+* public final void setPrioritiy(int newPriority):更改此线程的优先级
+  线程默认优先级是**5**，现成的优先级范围是0-10
+  线程优先级高仅仅表示线程获取的CPU时间片的几率高，但是要在次数比较多，或者多次运行的时候才能看到你想要的效果
+```java
+my3.setPriority(1);
+```
+### 25.1.6. 线程控制
+|方法名|说明|
+|:---|:---|
+|static void sleep(long millis)|使当前正在执行的线程停留（暂停执行）指定的毫秒数|
+|void join()|等待这个线程死亡|
+|void setDaemon(boolean on)|将此线程标记为守护线程，当运行的线程都是守护线程时，Java虚拟机将退出|
+```java
+//sleep
+Thread.sleep(1000);//在子类中使用
+//join
+my1.start();//my1结束后才能执行其他线程
+try {
+    my1.join();
+} catch (InterruptedException e) {
+    e.printStackTrace();
+}
+//守护线程，当主线程执行结束后，守护线程强制停止执行
+my1.setDaemon(true)
+```
+
+### 25.1.7. 线程生命周期
+![线程生命周期](线程生命周期.png)
+### 25.1.8. 多线程的实现方式二
+实现Runnable接口
+* 定义一个类MyRunnable实现Runnable
+* 在MyRunnable类中重写run()方法
+* 创建MyRunnable类的对象
+* 创建Thread类的对象，把MyRunnable对象作为构造方法的参数
+* 启动线程
+好处：
+* 线程相当于
+* 避免了Java单继承的局限性：使用Runnable接口，能够直接自定义名称，且没有继承自Thread，能够有自己的父类
+* 适合多个相同程序的代码去处理同一个资源的情况，把线程和程序的代码、数据有效分离，较好地体现了面向对象的设计思想
+## 25.2. 线程同步
+#### 25.2.0.1. 卖票
+共有100张票，有3个窗口，设计程序模拟电影院卖票
+```java
+private int tickets = 100;//子类
+@Override
+public void run() {
+    while (true) {
+        if ((tickets) > 0) {
+            System.out.println(Thread.currentThread().getName() + "卖了一张票，还剩"+(tickets--)+"张");
+        } else {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("票已卖完");
+        }
+
+SellticketsRunnable str = new SellticketsRunnable();
+Thread t1 = new Thread(str,"窗口1");
+Thread t2 = new Thread(str,"窗口2");
+Thread t3 = new Thread(str,"窗口3");
+
+t1.start();
+t2.start();
+t3.start();
+```
+当出票需要时间时，即出售一张票用时100ms时，出现了问题
+* 相同的票出现了多次
+* 出现了负数票
+问题原因：
+* 线程执行的随机性导致的
+#### 25.2.0.2. 卖票案例中数据安全问题的解决
+为什么出现问题：
+* 是否是多线程环境
+* 是否有共享数据
+* 是否有多条语句操作共享数据
+解决基本思想：让程序没有安全问题的环境
+* 把多条语句操作贡献数据的代码锁起来，让任意时刻只能有一个线程运行即可
+* Java提供了同步代码块的方式来解决
+### 25.2.1. 同步代码块
+* 格式
+  synchronized(任意对象，如new Object，每一个Object都相当于一把锁，当对象相同时，相当于用同一把锁来限制线程执行){
+    多条语句操作共享数据的代码
+  }
+* synchronized(任意对象):就相当于给代码加锁了，任意对象就可以看成是一把锁
+
+```java
+public void run() {
+while (true) {
+    try {
+        Thread.sleep(100);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+    synchronized (this) {
+        if ((tickets--) > 0) {
+            System.out.println(Thread.currentThread().getName());
+            System.out.println(Thread.currentThread().getName() + "卖了一张票，还剩" + tickets + "张");
+        } else {
+            System.out.println("票已卖完");
+            return;
+        }
+```  
+
+  **注意：** 本程序在运行时，如果sleep放在锁内，会导致子程序run()一直被第一个触发的线程调用，解决方法就是将延迟放在锁外。
+* 好处：解决了多线程的数据安全问题
+* 弊端：当线程很多时，因为每个线程都会去判断同步上的锁，很是耗费资源，无形中降低程序运行效率
+### 25.2.2. 同步方法
+就是把synchronized关键字加到方法上
+* 格式：
+  修饰符 synchronized 返回值类型 方法名(方法参数){}
+同步方法的锁对象是什么呢？
+* this
+同步静态方法：就是把synchronized关键字加到静态方法上
+* 格式：
+  修饰符static synchronized 返回值类型 方法名(方法参数){}
+* 同步静态方法的锁对象是**类名.class**
+### 25.2.3. 线程安全的类
+StringBuffer
+* 线程安全，可变的字符序列
+* 从版本JDK5开始，被StringBuilder替代。通常应该使用StringBuilder类，因为它支持所有相同的操作，但它更快，因为它不执行同步
+Vector
+* 从Java2平台V1.2开始，该类改进了List接口，使其成为Java Collections Framework成员。与新的集合实现不同，Vector被同步。如果不需要线程安全的实现，建议使用ArrayList代替Vector
+Hashtable
+* 该类实现了一个哈希表，它将键映射到值，任何非null对象都可以用作键或者值
+* 从Jvva2平台V1.2开始，该类进行了改进，实现了Map接口，使其成为Java Collections Framework的成员。与新的集合实现不同，Hashtable被同步。如果不需要线程安全的实现，建议使用HashMap代替Hashtable
+
+以上被Collections中的synchronizedList、synchronizedMap​等替代，写成如下形式：
+List<String> list = Collections.synchronizedList(new ArrayList<String>());synchronizedList中使用了同步代码块的方式实现线程安全
+### 25.2.4. Lock锁（接口）
+虽然我们可以理解同步代码块和同步方法的锁的对象问题，但是我们并没有直接看到在哪里加上了锁，在哪里释放了锁，为了更清晰的表达如何加锁和释放锁，JDK5之后提供了一个新的锁的对象Lock
+Lock实现提供比使用synchronized()方法和语句可以获得更广泛的锁定操作
+Lock中提供了获得锁和释放锁的方法
+* void lock():获得锁
+* void unlock():释放锁
+Lock是接口不能直接实例化，这里采用它的实现类ReentrantLock来实例化
+ReentrantLock的构造方法
+* ReentrantLock():创建一个ReentrantLock的实例
+## 25.3. 生产者消费者
+### 25.3.1. 生产者消费者模式概述
+生产者消费者模式是一个非常经典的多线程协作的模式，弄懂生产者消费者问题能够让我们对多线程编程的理解更加深刻
+所谓生产者消费者问题，实际上主要是包含了两类线程：
+* 一类是生产者线程用于生产数据
+* 一类是消费者线程用于消费数据
+为了解耦生产者和消费者的关系，通常会采用共享的数据区域，就像是一个仓库
+* 生产者生产数据之后直接放置在共享数据中，并不需要关心消费者的行为
+* 消费者只需要从共享数据区去获取数据，并不需要关心生产者的行为
+### 生产者消费者模式概述
+为了体现生产和消费过程中的等待和唤醒，Java就提供了几个方法供我们使用，就几个方法在Object类中
+Object类的等待和唤醒方法：
+|方法名|说明|
+|:---|:---|
+|void wait()|导致当前线程等待，知道另一个线程调用该对象的notify()方法或notifyAll()方法|
+|void notify()|唤醒正在等待对象监视器的单个线程|
+|void notifyAll()|唤醒正在等待对象监视器的所有线程|
+### 生产者和消费者案例
+包含的类：
+* 奶箱类(Box):定义一个成员变量，表示第x瓶奶，提供存储牛奶和获取牛奶的操作
+* 生产者类(Producer):实现Runnable接口，重写run()方法，调用存储牛奶的操作
+* 消费者类(Customer):实现Runnable接口，重写run()方法，调用获取牛奶的操作
+* 测试类(BoxDemo):里面有main()方法，mian方法中的代码步骤如下：
+  * 创建奶箱对象，这是共享数据区域
+  * 创建生产者对象，把奶箱对象作为构造方法参数传递，因为在这个类中要调用存储牛奶的操作
+  * 创建消费者对象，把奶箱对象作为构造方法参数传递，因为在这个类中要调用获取牛奶的操作
+  * 创建2个线程对象，分别把生产者对象和消费者对象作为构造方法参数传递
+  * 启动线程
+# 网络编程
+## 网络编程入门
+### 网络编程概述
+计算机网络
+* 是指将地理位置不同的具有独立功能的多台计算机及其外部设备，通过通信线路连接起来，在网络操作系统，网路管理软件及网络通信协议的管理和协商下，实现资源共享和信息传递的计算机系统
+网络编程
+* 在网络通信协议下，实现网络互联的不同计算机上运行的程序间可以进行数据交换
+### 网编程三要素
+**IP地址**
+* 要想让网络中的计算机能够互相通信，必须为每台计算机指定一个标识号，通过这个标识号来指定要接收数据的计算机和识别发送的计算机，而IP地址就是这个标识号。也就是设备的标识
+**端口**
+* 网络的通信，本质上是两个应用程序的通信。每台计算机都有很多的应用程序，那么再网络通信时，如何区分这些应用程序呢？如果说IP地址可以唯一标识网络中的设备，那么端口号就可以唯一标识设备中的应用程序，也就是应用程序的标识。
+**协议**
+* 通过计算机网络可以使多台计算机实现连接，位于同一个网络中的计算机在进行连接和通信时需要遵循一定的规则，就好比在道路中行驶的汽车一定要遵守交通规则一样。在计算机网络中，这些连接和通信的规则被称为网络通信协议，它对数据的传输格式、传输速率、传输步骤等做了统一规定，通信双方必须同时遵守才能完成数据交换。常见的协议有UDP协议和TCP协议。
+### IP地址
+IPv4：给每个连接在网络上的主机分配一个32bit地址。
+IPv6：为了扩大地址空间，采用128bit位地址长度，每16个字节一组，分成8组十六进制。
+特殊IP地址：
+* 127.0.0.1：是回送地址，可以代表本机地址，一般用来测试使用
+### InetAddress的使用
+此类表示Internet协议（IP）地址
+|方法名|说明|
+|:---|:---|
+|static InetAddress getByNmae(String host)|确定主机名称的IP地址，主机名称可以是主机名称，也可以是IP地址|
+|String getHostName()|获取此IP地址的主机名|
+|String getHostAddress()|返回文本显示中的IP地址字符串|
+```java
+InetAddress address  = InetAddress.getByName("192.168.199.181");
+InetAddress address  = InetAddress.getByName("Tang7");
+```
+### 端口
+设备上应用程序的唯一标识
+端口号：用两个字节表示的整数，它的取值范围是0~65535.其中，其中，0~1023之间的端口号用于一些知名的网络服务和应用，普通的应用程序需要使用1024以上的端口号。如果端口号被另外一个服务或应用所占用，会导致当前程序启动失败
+### 协议
+计算机网络中，连接和通信的规则被称为网络通信协议
+**UDP协议**
+* 用户数据协议（User Datagram Protocol）
+* UDP是无线连接通信协议，即在数据传输时，数据的发送端和接收端不建立逻辑连接。简单来说，当一台计算机向另外一台计算机发送数据时，发送端不会确认接收端是否存在，就会发出数据，同样接收端在收到数据时，也不会向发送端反馈是否收到数据。
+  由于使用UDP协议消耗资源小，通行效率高，所以通常都会用于音频、视频和普通数据的传输
+* 例如，视频会议通常采用UDP协议，因为这种情况即使偶尔丢失一两个数据包，也不会对接收结果产生太大影响。但是在使用UDP协议传送数据时，由于UDP的面向无连接性，不能保证数据的完整性，因此在传输重要数据时不建议使用UDP协议
+**TCP协议**
+* 传输控制协议
+* TCP协议是面向连接的通信协议，即传输数据之前，在发送端和接收端建立逻辑连接，然后再传输数据，它提供了两台计算机之间可靠无差错的数据传输。在TCP连接中必须要明确客户端与服务器端，由客户端向服务器发出连接请求，每次连接的创建都需要经过“三次握手”
+* 三次握手：TCP协议中，在发送数据的准备阶段，客户端与服务器之间的三次交互，以保证连接的可靠
+  第一次握手，客户端向服务器端发出连接请求，等待服务器确认
+  第二次握手，服务器端向客户端回送一个响应，通知客户端收到了连接请求
+  第三次握手，客户端再次向服务器发送确认信息，确认连接
+* 完成三次握手，连接建立后，客户端和服务器就可以开始进行数据传输了。由于这种面向连接的特性，TCP协议可以保证传输数据的安全，所以应用十分广泛。例如上传文件、下载文件、浏览网页等
+## UDP通信程序
+### UDP通信原理
+UDP协议是一种不可靠的网络协议，它是通信的两端各建立一个Scoket对象，但是这两个Scoket只是发送，接收数据的对象。因此对于基于UDP协议的通信双方而言，没有所谓的客户端和服务器的概念
+Java提供了DatagramScoket类作为基于UDP协议的Scoket
+### UDP发送数据
+发送数据的步骤
+① 创建发送端的Socket对象（DatagrameSocket）
+② 创建数据，并把数据打包
+③ 调用DatagramScoket对象的方法发送数据
+④ 关闭发送端
+```java
+DatagramSocket ds = new DatagramSocket();
+//创建数据，并把数据打包
+//DatagramPacket(byte[] buf,int length,InetAddress address,int port)
+//构造一个数据包，发送长度为length的数据包到指定主机上的指定端口号
+byte[] bys = "hello,udp,我来了".getBytes();
+//        int length = bys.length;
+//        InetAddress address = InetAddress.getByName("192.168.199.181");
+//        int port = 10086;
+//        DatagramPacket dp = new DatagramPacket(bys,length,address,port);
+DatagramPacket dp = new DatagramPacket(bys,bys.length,InetAddress.getByName("192.168.199.181"),10086);
+//调用DatagramScoket对象的方法发送数据
+//void send(DatagramPacket p)从此套接字发送数据包
+ds.send(dp);
+//关闭发送端
+//void close() 关闭此数据报套接字
+ds.close();
+```
+### UDP接收数据
+接受数据的步骤
+① 创建接收端的Socket对象(DaragramSocket)
+  * DatagramSocket(int port);//使用的是带参对象
+② 创建一个数据包，用于接收数据
+  * DatagramPacket(byte[] buf,int length)
+③ 调用DatagramSocket对象的方法接收数据
+  * void receive(DatagramPacket p)
+④ 解析数据包，并把数据在控制台显示
+  * byte[] getData()
+  * int getLength()
+⑤ 关闭接收端
+  * void close()
+```java
+DatagramSocket ds = new DatagramSocket(10086);
+//创建一个数据包
+byte[] bys = new byte[1024];
+DatagramPacket dp = new DatagramPacket(bys,bys.length);
+ds.receive(dp);
+//        byte[] data = dp.getData();//拿到的是数据缓冲区
+//        int len = dp.getLength();//得到数据的实际长度
+System.out.println("数据是"+new String(dp.getData(),0,dp.getLength()));
+```
+#### UDP通信案例
+```java
+//发送端
+Scanner sc = new Scanner(System.in);
+String s = sc.nextLine();
+DatagramSocket ds = new DatagramSocket();
+while(!s.equals("886")){
+    DatagramPacket dp = new DatagramPacket(s.getBytes(),s.getBytes().length, InetAddress.getByName("192.168.199.181"),10086);
+    ds.send(dp);
+    s = sc.nextLine();
+}
+ds.close();
+//接收端
+DatagramSocket ds = new DatagramSocket(10086);
+byte[] bys = new byte[2];
+DatagramPacket dp = new DatagramPacket(bys,bys.length );
+while (true){
+    ds.receive(dp);
+    System.out.println("数据是："+new String(dp.getData(),0,dp.getLength()));
+}
+```
+## TCP通信程序
+### TCP通信原理
+TCP通信协议是一种可靠的网络协议，它在通信的两端各建立一个Socket对象，从而在通信的两端形成网络虚拟链路，一旦建立了虚拟的网络链路，两端的程序就可以通过虚拟链路进行通信
+Java对基于TCP协议的网络提供了良好的封装，使用Socket对象来代表两端的通信接口，并通过Socket产生IO流来进行网络通信
+Java为客户端提供了Socket类，为服务器端提供了ServerSocket类
+### TCP发送数据
+发送数据的步骤
+① 创建客户端的SOcket对象(Socket)
+  Socket(String host,int port)
+② 获取输出流，写数据
+  OutputStream getOutputStream()
+③ 释放资源
+  void close()
+### TCP接收数据
+接收数据的步骤
+① 创建服务器端的Socket对象(SeverSocket)
+ServerSocket(int port)
+② 监听客户端连接，返回一个Socket对象
+Socket accept()
+③ 获取输入流，读数据，并把数据显示在控制台
+InputStream getInputStream()
+④ 释放资源
+void close()
