@@ -277,25 +277,56 @@
     - [25.2.4. Lock锁（接口）](#2524-lock锁接口)
   - [25.3. 生产者消费者](#253-生产者消费者)
     - [25.3.1. 生产者消费者模式概述](#2531-生产者消费者模式概述)
-    - [生产者消费者模式概述](#生产者消费者模式概述)
-    - [生产者和消费者案例](#生产者和消费者案例)
-- [网络编程](#网络编程)
-  - [网络编程入门](#网络编程入门)
-    - [网络编程概述](#网络编程概述)
-    - [网编程三要素](#网编程三要素)
-    - [IP地址](#ip地址)
-    - [InetAddress的使用](#inetaddress的使用)
-    - [端口](#端口)
-    - [协议](#协议)
-  - [UDP通信程序](#udp通信程序)
-    - [UDP通信原理](#udp通信原理)
-    - [UDP发送数据](#udp发送数据)
-    - [UDP接收数据](#udp接收数据)
-      - [UDP通信案例](#udp通信案例)
-  - [TCP通信程序](#tcp通信程序)
-    - [TCP通信原理](#tcp通信原理)
-    - [TCP发送数据](#tcp发送数据)
-    - [TCP接收数据](#tcp接收数据)
+    - [25.3.2. 生产者消费者模式概述](#2532-生产者消费者模式概述)
+    - [25.3.3. 生产者和消费者案例](#2533-生产者和消费者案例)
+- [26. 网络编程](#26-网络编程)
+  - [26.1. 网络编程入门](#261-网络编程入门)
+    - [26.1.1. 网络编程概述](#2611-网络编程概述)
+    - [26.1.2. 网编程三要素](#2612-网编程三要素)
+    - [26.1.3. IP地址](#2613-ip地址)
+    - [26.1.4. InetAddress的使用](#2614-inetaddress的使用)
+    - [26.1.5. 端口](#2615-端口)
+    - [26.1.6. 协议](#2616-协议)
+  - [26.2. UDP通信程序](#262-udp通信程序)
+    - [26.2.1. UDP通信原理](#2621-udp通信原理)
+    - [26.2.2. UDP发送数据](#2622-udp发送数据)
+    - [26.2.3. UDP接收数据](#2623-udp接收数据)
+      - [26.2.3.1. UDP通信案例](#26231-udp通信案例)
+  - [26.3. TCP通信程序](#263-tcp通信程序)
+    - [26.3.1. TCP通信原理](#2631-tcp通信原理)
+    - [26.3.2. TCP发送数据](#2632-tcp发送数据)
+    - [26.3.3. TCP接收数据](#2633-tcp接收数据)
+    - [26.3.4. TCP通信程序练习](#2634-tcp通信程序练习)
+      - [26.3.4.1. 练习1：](#26341-练习1)
+      - [26.3.4.2. 练习2：](#26342-练习2)
+      - [26.3.4.3. 练习3](#26343-练习3)
+      - [26.3.4.4. 练习4](#26344-练习4)
+      - [26.3.4.5. 练习5](#26345-练习5)
+      - [26.3.4.6. 练习6](#26346-练习6)
+- [27. Lambda表达式](#27-lambda表达式)
+  - [27.1. Lambda](#271-lambda)
+    - [27.1.1. 函数式编程思想概述](#2711-函数式编程思想概述)
+    - [27.1.2. 体验Lambda表达式](#2712-体验lambda表达式)
+    - [27.1.3. Lambda表达式的标准格式](#2713-lambda表达式的标准格式)
+    - [27.1.4. Lambda表达式的练习](#2714-lambda表达式的练习)
+      - [27.1.4.1. 练习1](#27141-练习1)
+      - [27.1.4.2. 练习2：](#27142-练习2)
+      - [27.1.4.3. 练习3](#27143-练习3)
+    - [27.1.5. Lambda表达式的省略模式](#2715-lambda表达式的省略模式)
+    - [27.1.6. Lambda表达式的注意事项](#2716-lambda表达式的注意事项)
+    - [27.1.7. Lambda表达式和匿名内部类的区别](#2717-lambda表达式和匿名内部类的区别)
+- [28. 接口组成更新](#28-接口组成更新)
+    - [28.0.8. 接口组成更新概述](#2808-接口组成更新概述)
+    - [28.0.9. 接口中默认方法](#2809-接口中默认方法)
+    - [28.0.10. 接口中的静态方法](#28010-接口中的静态方法)
+    - [28.0.11. 接口中私有方法](#28011-接口中私有方法)
+  - [28.1. 方法应用](#281-方法应用)
+    - [28.1.1. 体验方法应用](#2811-体验方法应用)
+    - [方法引用符](#方法引用符)
+    - [Lambda表达式支持的方法引用](#lambda表达式支持的方法引用)
+- [函数式接口](#函数式接口)
+    - [函数式接口作为方法的参数](#函数式接口作为方法的参数)
+    - [函数式接口作为方法的返回值](#函数式接口作为方法的返回值)
 
 <!-- /TOC -->
 # 1. 前置教程
@@ -3101,7 +3132,7 @@ ReentrantLock的构造方法
 为了解耦生产者和消费者的关系，通常会采用共享的数据区域，就像是一个仓库
 * 生产者生产数据之后直接放置在共享数据中，并不需要关心消费者的行为
 * 消费者只需要从共享数据区去获取数据，并不需要关心生产者的行为
-### 生产者消费者模式概述
+### 25.3.2. 生产者消费者模式概述
 为了体现生产和消费过程中的等待和唤醒，Java就提供了几个方法供我们使用，就几个方法在Object类中
 Object类的等待和唤醒方法：
 |方法名|说明|
@@ -3109,7 +3140,7 @@ Object类的等待和唤醒方法：
 |void wait()|导致当前线程等待，知道另一个线程调用该对象的notify()方法或notifyAll()方法|
 |void notify()|唤醒正在等待对象监视器的单个线程|
 |void notifyAll()|唤醒正在等待对象监视器的所有线程|
-### 生产者和消费者案例
+### 25.3.3. 生产者和消费者案例
 包含的类：
 * 奶箱类(Box):定义一个成员变量，表示第x瓶奶，提供存储牛奶和获取牛奶的操作
 * 生产者类(Producer):实现Runnable接口，重写run()方法，调用存储牛奶的操作
@@ -3120,26 +3151,26 @@ Object类的等待和唤醒方法：
   * 创建消费者对象，把奶箱对象作为构造方法参数传递，因为在这个类中要调用获取牛奶的操作
   * 创建2个线程对象，分别把生产者对象和消费者对象作为构造方法参数传递
   * 启动线程
-# 网络编程
-## 网络编程入门
-### 网络编程概述
+# 26. 网络编程
+## 26.1. 网络编程入门
+### 26.1.1. 网络编程概述
 计算机网络
 * 是指将地理位置不同的具有独立功能的多台计算机及其外部设备，通过通信线路连接起来，在网络操作系统，网路管理软件及网络通信协议的管理和协商下，实现资源共享和信息传递的计算机系统
 网络编程
 * 在网络通信协议下，实现网络互联的不同计算机上运行的程序间可以进行数据交换
-### 网编程三要素
+### 26.1.2. 网编程三要素
 **IP地址**
 * 要想让网络中的计算机能够互相通信，必须为每台计算机指定一个标识号，通过这个标识号来指定要接收数据的计算机和识别发送的计算机，而IP地址就是这个标识号。也就是设备的标识
 **端口**
 * 网络的通信，本质上是两个应用程序的通信。每台计算机都有很多的应用程序，那么再网络通信时，如何区分这些应用程序呢？如果说IP地址可以唯一标识网络中的设备，那么端口号就可以唯一标识设备中的应用程序，也就是应用程序的标识。
 **协议**
 * 通过计算机网络可以使多台计算机实现连接，位于同一个网络中的计算机在进行连接和通信时需要遵循一定的规则，就好比在道路中行驶的汽车一定要遵守交通规则一样。在计算机网络中，这些连接和通信的规则被称为网络通信协议，它对数据的传输格式、传输速率、传输步骤等做了统一规定，通信双方必须同时遵守才能完成数据交换。常见的协议有UDP协议和TCP协议。
-### IP地址
+### 26.1.3. IP地址
 IPv4：给每个连接在网络上的主机分配一个32bit地址。
 IPv6：为了扩大地址空间，采用128bit位地址长度，每16个字节一组，分成8组十六进制。
 特殊IP地址：
 * 127.0.0.1：是回送地址，可以代表本机地址，一般用来测试使用
-### InetAddress的使用
+### 26.1.4. InetAddress的使用
 此类表示Internet协议（IP）地址
 |方法名|说明|
 |:---|:---|
@@ -3150,10 +3181,10 @@ IPv6：为了扩大地址空间，采用128bit位地址长度，每16个字节�
 InetAddress address  = InetAddress.getByName("192.168.199.181");
 InetAddress address  = InetAddress.getByName("Tang7");
 ```
-### 端口
+### 26.1.5. 端口
 设备上应用程序的唯一标识
 端口号：用两个字节表示的整数，它的取值范围是0~65535.其中，其中，0~1023之间的端口号用于一些知名的网络服务和应用，普通的应用程序需要使用1024以上的端口号。如果端口号被另外一个服务或应用所占用，会导致当前程序启动失败
-### 协议
+### 26.1.6. 协议
 计算机网络中，连接和通信的规则被称为网络通信协议
 **UDP协议**
 * 用户数据协议（User Datagram Protocol）
@@ -3168,11 +3199,11 @@ InetAddress address  = InetAddress.getByName("Tang7");
   第二次握手，服务器端向客户端回送一个响应，通知客户端收到了连接请求
   第三次握手，客户端再次向服务器发送确认信息，确认连接
 * 完成三次握手，连接建立后，客户端和服务器就可以开始进行数据传输了。由于这种面向连接的特性，TCP协议可以保证传输数据的安全，所以应用十分广泛。例如上传文件、下载文件、浏览网页等
-## UDP通信程序
-### UDP通信原理
+## 26.2. UDP通信程序
+### 26.2.1. UDP通信原理
 UDP协议是一种不可靠的网络协议，它是通信的两端各建立一个Scoket对象，但是这两个Scoket只是发送，接收数据的对象。因此对于基于UDP协议的通信双方而言，没有所谓的客户端和服务器的概念
 Java提供了DatagramScoket类作为基于UDP协议的Scoket
-### UDP发送数据
+### 26.2.2. UDP发送数据
 发送数据的步骤
 ① 创建发送端的Socket对象（DatagrameSocket）
 ② 创建数据，并把数据打包
@@ -3196,7 +3227,7 @@ ds.send(dp);
 //void close() 关闭此数据报套接字
 ds.close();
 ```
-### UDP接收数据
+### 26.2.3. UDP接收数据
 接受数据的步骤
 ① 创建接收端的Socket对象(DaragramSocket)
   * DatagramSocket(int port);//使用的是带参对象
@@ -3219,7 +3250,7 @@ ds.receive(dp);
 //        int len = dp.getLength();//得到数据的实际长度
 System.out.println("数据是"+new String(dp.getData(),0,dp.getLength()));
 ```
-#### UDP通信案例
+#### 26.2.3.1. UDP通信案例
 ```java
 //发送端
 Scanner sc = new Scanner(System.in);
@@ -3240,12 +3271,12 @@ while (true){
     System.out.println("数据是："+new String(dp.getData(),0,dp.getLength()));
 }
 ```
-## TCP通信程序
-### TCP通信原理
+## 26.3. TCP通信程序
+### 26.3.1. TCP通信原理
 TCP通信协议是一种可靠的网络协议，它在通信的两端各建立一个Socket对象，从而在通信的两端形成网络虚拟链路，一旦建立了虚拟的网络链路，两端的程序就可以通过虚拟链路进行通信
 Java对基于TCP协议的网络提供了良好的封装，使用Socket对象来代表两端的通信接口，并通过Socket产生IO流来进行网络通信
 Java为客户端提供了Socket类，为服务器端提供了ServerSocket类
-### TCP发送数据
+### 26.3.2. TCP发送数据
 发送数据的步骤
 ① 创建客户端的SOcket对象(Socket)
   Socket(String host,int port)
@@ -3253,7 +3284,7 @@ Java为客户端提供了Socket类，为服务器端提供了ServerSocket类
   OutputStream getOutputStream()
 ③ 释放资源
   void close()
-### TCP接收数据
+### 26.3.3. TCP接收数据
 接收数据的步骤
 ① 创建服务器端的Socket对象(SeverSocket)
 ServerSocket(int port)
@@ -3263,3 +3294,382 @@ Socket accept()
 InputStream getInputStream()
 ④ 释放资源
 void close()
+### 26.3.4. TCP通信程序练习
+#### 26.3.4.1. 练习1：
+* 客户端：发送数据，接收服务器反馈
+* 服务器：接收数据，给出反馈
+* * 服务器端先读数据后写数据
+* * 客户端先写数据后读数据
+```java
+//客户端。创建客户端的Socket对象
+Socket s = new Socket("192.168.199.181",10320);
+OutputStream os = s.getOutputStream();
+os.write("java，我来了".getBytes());
+InputStream is = s.getInputStream();//接收服务器的反馈，得到服务器的输入流
+byte[] bys = new byte[1024];
+int len = is.read(bys);
+String data = new String(bys,0,len);//读到服务器的
+System.out.println("客户端："+data);
+s.close();
+//服务器端。创建服务器端的Socket对象(ServerSocket)
+ServerSocket ss = new ServerSocket(10320);
+Socket s = ss.accept();//监听客户端连接，返回一个Socket对象
+//获取输入流，读数据，并把数据显示在控制台
+InputStream is = s.getInputStream();
+byte[] bys = new byte[1024];
+int len = is.read(bys);
+String data = new String(bys,0,len);
+System.out.println("服务器："+data);
+OutputStream os = s.getOutputStream();
+os.write("数据已经收到".getBytes());
+ss.close();
+```
+#### 26.3.4.2. 练习2：
+* 客户端：数据来自于键盘录入，直到输入的数据是886，发送数据结束//一次写一个字符串
+* 服务器：接收到的数据在控制台输出
+```java
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+Socket s = new Socket("192.168.199.181", 10320);
+//客户端。使用BufferedWriter转换成字符输出流
+BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));//封装输出流对象
+String s1 = br.readLine();
+while (!s1.equals("886")) {
+    if (!s1.equals("")) {
+        bw.write(s1);
+        bw.newLine();
+        bw.flush();
+    }
+    s1 = br.readLine();
+}
+s.close();
+//服务器端。
+ServerSocket ss = new ServerSocket(10320);
+Socket s = ss.accept();
+BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+String line;
+while (true) {
+    line = br.readLine();
+    System.out.println("接收到的数据为：" + line);
+}
+```
+#### 26.3.4.3. 练习3
+* 客户端：数据来自于键盘录入，直到输入的数据是886，发送数据结束
+* 服务器端：接收到的数据写入文本文件
+```java
+//客户端
+Socket s = new Socket("192.168.199.181", 10320);
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+
+String line;
+while ((line = br.readLine()) != null) {
+    if (line.equals("886")) {
+        break;
+    } else if (!line.equals("")) {
+        bw.write(line);
+        bw.newLine();
+        bw.flush();
+    } else {
+    }
+}
+bw.write("886");
+bw.flush();
+s.close();
+bw.close();
+//服务器端
+ServerSocket ss = new ServerSocket(10320);
+Socket s = ss.accept();
+BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/IP/Test3/1.txt"));
+String line;
+while (!(line = br.readLine()).equals("886")) {
+    System.out.println("接收并保存的数据为:" + line);
+    bw.write(line);
+    bw.newLine();
+    bw.flush();
+}
+bw.close();
+ss.close();
+```
+#### 26.3.4.4. 练习4
+* 客户端：数据来自于文本文件
+* 服务器端：接收到的数据写入文本文件
+//写客户端的程序，只需将输入流改为文本输入流
+#### 26.3.4.5. 练习5
+* 服务器端：服务器给反馈
+出现服务器不知道输入结束导致程序一直等待
+解决方法:自定义结束标记;使用shutdownOutput()方法
+```java
+//客户端
+Socket s = new Socket("192.168.199.181", 10320);
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+String line;
+while ((line = br.readLine()) != null) {
+    if (line.equals("886")) {
+        break;
+    } else if (!line.equals("")) {
+        bw.write(line);
+        bw.newLine();
+        bw.flush();
+    } else {
+    }
+}
+//        bw.write("886");
+//        bw.newLine();
+//        bw.flush();
+s.shutdownOutput();
+BufferedReader brClient = new BufferedReader(new InputStreamReader(s.getInputStream()));
+System.out.println(brClient.readLine());
+s.close();
+bw.close();
+//服务器端
+ServerSocket ss = new ServerSocket(10320);
+Socket s = ss.accept();
+BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+BufferedWriter bw = new BufferedWriter(new FileWriter("src/com/IP/Test3/1.txt"));
+String line;
+// while (!(line = br.readLine()).equals("886")) {
+while ((line = br.readLine())!=null) {
+    System.out.println("接收并保存的数据为:" + line);
+    bw.write(line);
+    bw.newLine();
+    bw.flush();
+}
+BufferedWriter bwServer = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+bwServer.write("文件上传成功");
+bwServer.newLine();
+bwServer.flush();
+System.out.println("反馈结束");
+bw.close();
+ss.close();
+```
+#### 26.3.4.6. 练习6
+* 客户端：数据来自于文本文件，接收服务器反馈
+* 服务器：接收到的数据写入文本文件，给出反馈，代码用线程进行封装，为每一个客户端开启一个线程
+# 27. Lambda表达式
+## 27.1. Lambda
+### 27.1.1. 函数式编程思想概述
+在数学中，函数就是有输入量、输出量的一套计算方法，也就是“拿数据做操作”
+面向对象思想强调“必须通过对象的形式来做事情”
+函数式思想则尽量忽略面向对象的复杂语法：“强调做什么，而不是以什么形式去做”
+**而我们要学习的Lambda表达式就是函数式思想的体现**
+### 27.1.2. 体验Lambda表达式
+需求：启动一个线程，在控制台输出一句话：多线程启动了
+方式1：
+* 定义一个类MyRunnable实现Runnable接口，重写run()方法
+* 创建MyRunnable类的对象
+* 创建Thread类的对象，把MyRunnable的对象作为构造参数传递
+* 启动线程
+方式2：
+* 匿名内部类的方式改进
+方式3：
+* Lambda表达式的方式改进
+```java
+//实现类的方式实现需求
+MyRunnable mr = new MyRunnable();
+Thread t1 = new Thread(mr,"t1");
+t1.start();
+//匿名内部类的方式改进
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("多线程程序启动");
+    }
+}).start();
+//Lambda表达式方式改进
+new Thread(()->{
+    System.out.println("多线程启动了2");
+}).start();
+}
+```
+### 27.1.3. Lambda表达式的标准格式
+匿名内部类中重写run()方法的代码分析
+* 方法形式参数为空，说明调用方法时不需要传递参数
+* 方法返回值类型为void，说明方法执行没有结果返回
+* 方法体中的内容，是我们具体要做的事情
+Lambda表达式的代码分析
+* ():里面没有内容，可以看成是方法形式参数为空
+* ->:用箭头指向后面要做的事情
+* {}:包含一段代码，我们称之为代码块，可以看成是方法体中的内容
+组成Lambda表达式的三要素：**形式参数，箭头，代码块**
+Lambda表达式的格式
+* 格式:(形式参数)->(代码块)
+* 形式参数:如果有多个参数，参数之间用逗号隔开；如果没有参数，留空即可
+* ->:由英文中画线和大于符号组成，固定写法，代表指向动作
+* 代码块：是我们具体要做的事情，也就是以前我们写的方法体内容
+### 27.1.4. Lambda表达式的练习
+#### 27.1.4.1. 练习1
+* 定义一个接口(Eatable)，里面定义一个抽象方法:void eat()
+* 定义一个测试类(EatableDemo),在测试类中提供两个方法
+  * 一个方法是：useEatable(Eatable e)
+  * 一个方法是主方法，在主方法中调用useEatable方法
+```java
+//主程序
+useEatable(()->{
+        System.out.println("一天一知己");
+    });
+public static void useEatable(Eatable e){
+    e.eat();
+}
+//定义一个eat方法的接口
+```
+#### 27.1.4.2. 练习2：
+* 定义一个接口(Flyable)，里面定义一个抽象方法:void fly(String s);
+* 定义一个测试类(FlyableDemo)，在测试类中提供两个方法
+  * 一个方法是：useFlyable(Flyable f)
+  * 一个方法是主方法：在主方法中调用useFLyable()方法
+```java
+ //匿名内部类
+useFlyable(new Flyablle() {
+    @Override
+    public void fly(String s) {
+        System.out.println(s);
+        System.out.println("飞机自驾游");
+    }
+});
+System.out.println("----------");
+useFlyable((String s) -> {
+    System.out.println(s);
+    System.out.println("飞机自驾游");
+});
+}
+
+public static void useFlyable(Flyablle f) {
+f.fly("风和日丽，晴空万里");
+}
+```
+#### 27.1.4.3. 练习3
+* 定义一个接口(Addable)，里面定义一个抽象方法:int add(int x,int y);
+* 定义一个测试类(AddableDemo)，在测试类中提供两个方法
+  * 一个方法是：useAddable(Addable a)
+  * 一个方法是主方法，在主方法中调用useAddable()方法
+```java
+//Lambda
+  useAddable((int x, int y) -> {
+      return x + y;//具体实现部分
+  });
+}
+
+public static void useAddable(Addable a) {
+  int sum = a.add(10, 20);
+  System.out.println(sum);
+}
+```
+### 27.1.5. Lambda表达式的省略模式
+* 参数的类型可以省略，但是有多个参数的情况下，不能只省略一个
+* 如果参数有且仅有一个，小括号可以省略
+* 如果代码块的语句只有一条，可以省略大括号和分号
+  * 如果有return，return也要省略掉
+### 27.1.6. Lambda表达式的注意事项
+* **使用Lambda必须要用接口，并且要求接口中有且仅有一个抽象方法**
+* 必须有上下文环境，根据局部变量类型推导出Lambda对应的接口
+* * 根据**局部变量的赋值**得知Lambda对应的接口
+* * 根据**调用方法的参数**得知Lambda对应的接口
+  ```java
+  Runnable r = ()->System.out.println("Lambda表达式");
+  new Thread(r).start()//局部变量的赋值
+  new Thread(()->System.out.println("Lambda表达式")).start();//调用方法的参数
+  ```
+### 27.1.7. Lambda表达式和匿名内部类的区别
+* 所需类型不同
+* * 匿名内部类：可以是接口，也可以是抽象类，还可以是具体类
+* * Lambda表达式：只能是接口
+* 使用限制不同
+* * 如果接口中有且仅有一个抽象方法，可以使用Lambda表达式，也可以使用匿名内部类
+* * 如果接口中多于一个抽象方法，只能使用匿名内部类，而不能使用Lambda表达式
+* 实现原理不同
+* * 匿名内部类：编译之后，产生一个单独的.claas字节码文件
+* * Lambda表达式：编译之后，没有单独的.class字节码文件。对应的字节码会在运行的时候动态生成
+# 28. 接口组成更新
+### 28.0.8. 接口组成更新概述
+接口的组成
+* 常量
+* * public static final
+* 抽象方法
+* * public abstract
+* 默认方法(Java8)
+* 静态方法(Java8)
+* 私有方法(Java9)
+### 28.0.9. 接口中默认方法
+当接口中新增新方法时，
+* 可以创建新接口继承自原接口，同时实现新方法功能，最后方法实现类调用新接口即可
+* 默认方法，定义格式
+* * 格式:public default 返回值类型 方法名(参数列表){}
+* * 范例:public default void show30(){}//可以有实现的，而且能够重写
+* 添加默认方法时并不会强制让实现类重写该方法，且在实现类中重写该方法也是可以的，但要去掉default
+* public 是可以省略的
+### 28.0.10. 接口中的静态方法
+* 格式：public static 返回值类型 方法名(参数列表){}
+* 范例：public static void show(){}//同样可以有实现
+* 因为接口具有多继承关系，即实现类能够实现多个接口，普通方法因为只定义了方法名没有具体实现，所以可以互相使用，但当多个接口中有同样的static方法时，实现类在主函数中无法知晓应该调用哪个接口中的static方法，所以接口中的静态方法只能被接口调用
+* 即Interface.show()
+* public可以省略，static不可省略
+### 28.0.11. 接口中私有方法
+* 定义格式
+* * 格式1：private 返回值类型 方法名(参数列表){}
+* * 范例1：private void show(){}
+* * 格式2：private static 返回值类型 方法名(参数列表){}
+* * 范例2：private static void method(){}
+* 私有方法/静态私有方法用于组成共享代码块，其中默认方法可以调用私有方法和非静态方法；静态方法只能调用私有的静态方法
+## 28.1. 方法应用
+### 28.1.1. 体验方法应用
+在使用Lambda表达式的时候，我们实际上传递进去的代码就是一种解决方案：拿参数做操作
+那么考虑一种情况，如果我们在Lambda中指定的操作方案，已经有地方存在相同方案，是没有必要写重复逻辑的。
+这就是方法引用，通过方法引用来使用已经存在的方案
+* 方法引用符::
+* 例：接口void printString(String s)
+* * usePrintable(Printable p){p.printString("String")}
+* * 则usePrintable(s->System.out.println(s)),可以写成
+* * usePrintable(System.out::println)//可推导的就是可省略的，相当于把s直接传给了println
+### 方法引用符
+* ::该符号为引用运算符，而它所在的表达式被称为方法引用
+* 推导与省略
+* * 如果使用Lambda，那么根据”可推导就是可省略“的原则，无需指定参数类型，也无需指定的重载形式，它们都将被自动推导
+* * 如果使用方法引用，也是同样可以根据上下文推导的
+* * 方法引用时lambda的孪生兄弟
+### Lambda表达式支持的方法引用
+常见的引用方式
+* 引用类方法
+* * 类名::静态方法--Integer::parseInt
+* * Lmbda表达式被类方法替代的时候，它的形式参数全传递给静态方法作为参数，如果有多个参数时，对应的静态方法是由多个参数的，全都传递进来
+* 引用对象的实例方法
+* * 对象::成员方法--"HelloWorld""::toUpperCase;//toUpperCase是对象的实例方法
+* * 如PrintString类中定义一个printUpper方法，可以直接拿来作为Lambda表达式方法，具体实现为：
+* * PrintString ps = new PrintString();usePrinter(ps::printUpper);或
+* * usePrinter(s-> System.out.println(s.toUpperCase()));或
+* * usePrinter(String::toUpperCase);
+* * Lambda表达式被对象的实例方法替代的时候，它的形式参数全部传递给该方法作为参数
+* 引用类的实例方法
+* * 类名::成员方法--String::substring
+* * Lambda表达式被类的实例方法替代时，第一个参数作为调用者，后面的参数全部传递给该方法作为参数
+* 引用构造器
+* * 类名::new--Student::new
+* * Lambda表达式被构造器替代时，它的形式参数全部传递给构造器作为参数
+# 函数式接口
+有且仅有一个抽象方法的接口
+Java中的函数式编程体现就是Lambda表达式，所以函数式接口就是可以适用于Lambda使用的接口
+只有确保接口中有且仅有一个抽象方法，Java中的Lambda才能顺利地进行推导
+* 注解@FunctionalInterfaace为函数式接口，放在接口定义的上方：如果接口是函数式接口，编译通过；如果不是，编译失败。注解后该接口只能有一个抽象方法存在。
+* 在自己定义函数式接口的时候，注解是可选的，就算不写这个注解，只要满足函数式接口的条件，也照样是函数式接口。**建议加上**该注解。
+```java
+MyInterface my = ()->System.out.println("函数式接口");
+my.show();//show为接口MyInterface中唯一的抽象方法
+```
+### 函数式接口作为方法的参数
+如果方法的参数是一个函数式接口，我们可以使用Lambda表达式作为参数传递
+```java
+//匿名内部类的方式
+startThread(new Runnable(){
+  @Override
+  public void run(){
+    System.out.println(Thread.currentThread().getName()+"线程启动了");
+  }
+});
+//函数式接口作为方法的参数
+startThread(()->System.out.println(Thread.currentThread().getName()+"线程启动了"));
+private static void startThread(Runnable r){
+  new Thread(r).start();
+}
+```
+### 函数式接口作为方法的返回值
