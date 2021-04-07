@@ -320,13 +320,30 @@
     - [28.0.9. 接口中默认方法](#2809-接口中默认方法)
     - [28.0.10. 接口中的静态方法](#28010-接口中的静态方法)
     - [28.0.11. 接口中私有方法](#28011-接口中私有方法)
-  - [28.1. 方法应用](#281-方法应用)
+  - [28.1. 方法引用](#281-方法引用)
     - [28.1.1. 体验方法应用](#2811-体验方法应用)
-    - [方法引用符](#方法引用符)
-    - [Lambda表达式支持的方法引用](#lambda表达式支持的方法引用)
-- [函数式接口](#函数式接口)
-    - [函数式接口作为方法的参数](#函数式接口作为方法的参数)
-    - [函数式接口作为方法的返回值](#函数式接口作为方法的返回值)
+    - [28.1.2. 方法引用符](#2812-方法引用符)
+    - [28.1.3. Lambda表达式支持的方法引用](#2813-lambda表达式支持的方法引用)
+- [29. 函数式接口](#29-函数式接口)
+    - [29.0.4. 函数式接口作为方法的参数](#2904-函数式接口作为方法的参数)
+    - [29.0.5. 函数式接口作为方法的返回值](#2905-函数式接口作为方法的返回值)
+    - [常用的函数式接口](#常用的函数式接口)
+- [Stream流](#stream流)
+  - [Stream流的生成方式](#stream流的生成方式)
+      - [Stream综合](#stream综合)
+    - [Stream流的收集](#stream流的收集)
+- [类加载器](#类加载器)
+  - [类加载](#类加载)
+  - [反射](#反射)
+    - [反射概述](#反射概述)
+    - [获取Class类的对象](#获取class类的对象)
+    - [反射获取成员变量并使用](#反射获取成员变量并使用)
+    - [反射获取成员方法并使用](#反射获取成员方法并使用)
+      - [练习：Integer集合中添加字符串数据](#练习integer集合中添加字符串数据)
+      - [通过配置文件运行类中的方法](#通过配置文件运行类中的方法)
+- [模块化](#模块化)
+  - [模块的基本使用](#模块的基本使用)
+  - [模块服务的使用](#模块服务的使用)
 
 <!-- /TOC -->
 # 1. 前置教程
@@ -1422,7 +1439,7 @@ public class ArrayList<E> extends abstractList<E> implements List<E>{
 }
 ```
 如何解决并发修改异常：
-使用循环得到数据时不使用next，而是使用get方法，该方法只会调用得到String而不会改变上述两个变量的值。
+使用循环得到数据�������������不使用next，而是使用get方法，该方法只会调用得到String而不会改变上述两个变量的值。
 ### 22.2.4. ListIterator
 列表迭代器
 * 通过List集合的listIterator()方法得到，所以说它是List集合特有的迭代器
@@ -1433,7 +1450,7 @@ public class ArrayList<E> extends abstractList<E> implements List<E>{
 * E previous():返回列表中的上一个元素
 * boolean hasPrevious():如果此列表迭代器在相反方向遍历列表时具有更多元素，则返回true
 * void add(E e):将指定的元素插入列表
-* * 列表迭代器add方法可以实现玩迭代器中添加元素，它不会引发并发修改异常，因为底层会把实际修改值赋值给预期修改值
+* * 列表迭代器add方法可以实现玩迭代器中添加元素，它不会引发并发修改异常，因为底层会���实际修改值赋值给预期修改值
 
 ### 22.2.5. 增强for循环
 目的：简化数组和collection集合的遍历
@@ -3006,7 +3023,7 @@ try {
 } catch (InterruptedException e) {
     e.printStackTrace();
 }
-//守护线程，当主线程执行结束后，守护线程强制停止执行
+//守护线程，当主线���执���结���后���守���线���强制停止执行
 my1.setDaemon(true)
 ```
 
@@ -3505,6 +3522,8 @@ Lambda表达式的格式
   * 一个方法是：useEatable(Eatable e)
   * 一个方法是主方法，在主方法中调用useEatable方法
 ```java
+//默认 多态的方式，新建接口，新建接口实现类，在主函数中调用子函数并调用接口方法
+// 匿名内部类：直接重写实现类
 //主程序
 useEatable(()->{
         System.out.println("一天一知己");
@@ -3597,12 +3616,12 @@ public static void useAddable(Addable a) {
 * 默认方法，定义格式
 * * 格式:public default 返回值类型 方法名(参数列表){}
 * * 范例:public default void show30(){}//可以有实现的，而且能够重写
-* 添加默认方法时并不会强制让实现类重写该方法，且在实现类中重写该方法也是可以的，但要去掉default
+* 添加默认方法时并不会强制让实现类重写该方法，且在实现类中重写该方法也是可以的，但在实现类中要去掉default
 * public 是可以省略的
 ### 28.0.10. 接口中的静态方法
 * 格式：public static 返回值类型 方法名(参数列表){}
 * 范例：public static void show(){}//同样可以有实现
-* 因为接口具有多继承关系，即实现类能够实现多个接口，普通方法因为只定义了方法名没有具体实现，所以可以互相使用，但当多个接口中有同样的static方法时，实现类在主函数中无法知晓应该调用哪个接口中的static方法，所以接口中的静态方法只能被接口调用
+* **因为接口具有多继承关系，即实现类能够实现多个接口，普通方法因为只定义了方法名没有具体实现，所以可以互相使用，但当多个接口中有同样的static方法时，实现类在主函数中无法知晓应该调用哪个接口中的static方法，所以接口中的静态方法只能被接口调用**
 * 即Interface.show()
 * public可以省略，static不可省略
 ### 28.0.11. 接口中私有方法
@@ -3612,7 +3631,7 @@ public static void useAddable(Addable a) {
 * * 格式2：private static 返回值类型 方法名(参数列表){}
 * * 范例2：private static void method(){}
 * 私有方法/静态私有方法用于组成共享代码块，其中默认方法可以调用私有方法和非静态方法；静态方法只能调用私有的静态方法
-## 28.1. 方法应用
+## 28.1. 方法引用
 ### 28.1.1. 体验方法应用
 在使用Lambda表达式的时候，我们实际上传递进去的代码就是一种解决方案：拿参数做操作
 那么考虑一种情况，如果我们在Lambda中指定的操作方案，已经有地方存在相同方案，是没有必要写重复逻辑的。
@@ -3621,14 +3640,18 @@ public static void useAddable(Addable a) {
 * 例：接口void printString(String s)
 * * usePrintable(Printable p){p.printString("String")}
 * * 则usePrintable(s->System.out.println(s)),可以写成
-* * usePrintable(System.out::println)//可推导的就是可省略的，相当于把s直接传给了println
-### 方法引用符
+* * usePrintable(System.out::println)//可推导的就是可省略的，相当于-把s直接传给了println
+* 
+* list.sort(Integer::compare);
+* Supplier<String> supplier2 = user::getName;
+* 
+### 28.1.2. 方法引用符
 * ::该符号为引用运算符，而它所在的表达式被称为方法引用
 * 推导与省略
 * * 如果使用Lambda，那么根据”可推导就是可省略“的原则，无需指定参数类型，也无需指定的重载形式，它们都将被自动推导
 * * 如果使用方法引用，也是同样可以根据上下文推导的
 * * 方法引用时lambda的孪生兄弟
-### Lambda表达式支持的方法引用
+### 28.1.3. Lambda表达式支持的方法引用
 常见的引用方式
 * 引用类方法
 * * 类名::静态方法--Integer::parseInt
@@ -3646,17 +3669,17 @@ public static void useAddable(Addable a) {
 * 引用构造器
 * * 类名::new--Student::new
 * * Lambda表达式被构造器替代时，它的形式参数全部传递给构造器作为参数
-# 函数式接口
+# 29. 函数式接口
 有且仅有一个抽象方法的接口
 Java中的函数式编程体现就是Lambda表达式，所以函数式接口就是可以适用于Lambda使用的接口
 只有确保接口中有且仅有一个抽象方法，Java中的Lambda才能顺利地进行推导
-* 注解@FunctionalInterfaace为函数式接口，放在接口定义的上方：如果接口是函数式接口，编译通过；如果不是，编译失败。注解后该接口只能有一个抽象方法存在。
+* 注解** @FunctionalInterfaace **为函数式接口，放在接口定义的上方：如果接口是函数式接口，编译通过；如果不是，编译失败。注解后该接口只能有一个抽象方法存在。
 * 在自己定义函数式接口的时候，注解是可选的，就算不写这个注解，只要满足函数式接口的条件，也照样是函数式接口。**建议加上**该注解。
 ```java
 MyInterface my = ()->System.out.println("函数式接口");
 my.show();//show为接口MyInterface中唯一的抽象方法
 ```
-### 函数式接口作为方法的参数
+### 29.0.4. 函数式接口作为方法的参数
 如果方法的参数是一个函数式接口，我们可以使用Lambda表达式作为参数传递
 ```java
 //匿名内部类的方式
@@ -3672,4 +3695,291 @@ private static void startThread(Runnable r){
   new Thread(r).start();
 }
 ```
-### 函数式接口作为方法的返回值
+### 29.0.5. 函数式接口作为方法的返回值
+* 定义一个类(ComparatorDemo)，在类中提供两个方法
+* 一个方法是:Comparator<String> getComparator()方法返回值Comparator是一个函数式接口，一个方法是主方法，在主方法中调用getComparator方法
+
+```java
+//匿名内部类
+Collections.sort(aray, new Comparator<String>() {
+    @Override
+    public int compare(String o1, String o2) {
+        return o2.length()-o1.length();
+    }
+});
+//Lambda直接排序
+Collections.sort(aray,((s1,s2)->s1.length()-s2.length()));
+//调用函数式接口作为返回值时，首先定义返回接口的函数
+private static Comparator<String> getComparator(){
+    return (s1,s2)->s1.length()-s2.length();
+}
+Collections.sort(aray,getComparator());//再调用即可
+```
+### 常用的函数式接口
+* Supplier接口
+* * 包含一个无参的方法 T get()
+**作用：**
+如果你发现你需要频繁地从客户端代码去查询一个对象的状态(比如前文例子中的日志器的状态),只是为了传递参数、调用该对象的一个方法(比如输出一条日志),那么可以考虑实现一个新的方法，以Lambda或者方法表达式作为参数，新方法在检查完该对象的状态之后才调用原来的方法.你的代码会因此而变得更易读(结构更清晰),封装性更好(对象的状态也不会暴露给客户端代码了)
+```java
+public static void main(String[] args) {
+        String s = getString(()->{
+            return "林青霞";
+        });
+        System.out.println(s);
+        String s2 = getString(()->"大狗子");
+        System.out.println(s2);
+        System.out.println("-----------------");
+        Integer i = getInteger(()->43);
+        System.out.println(i);
+    }
+    //定义一个方法，返回一个整数数据
+    private static Integer getInteger(Supplier<Integer> sup){
+        return sup.get();
+    }
+    //定义一个方法，返回一个字符串数据
+    private static String getString(Supplier<String> sup){
+        return sup.get();
+    }
+    // 应用，此时getMax调用的是Supplier接口
+    int[] arr = {1,2,5,3,123,5,23,5};
+    int max1 = getMax(() -> {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (max < arr[i]) max = arr[i];
+        }
+        return max;
+    });
+```
+* Consumer接口
+* * 也被称为消费型接口，它消费的数据的数据类型由泛型指定。表示接受单个输入参数并不反悔结果，方法有(void) accept(T t)和(default Consumer<T>)andThen(Consumer<? super T> after)
+    
+```java
+public static void main(String[] args) {
+    operatorString("大狗子", s-> System.out.println(new StringBuilder(s).reverse().toString()));
+    System.out.println("----------");
+    operatorString("大狗子",s-> System.out.println(s),s -> System.out.println(new StringBuilder(s).reverse().toString()));
+}
+//定义一个方法，用不同的方式消费同一个字符串两次
+private static void operatorString(String name,Consumer<String> con1,Consumer<String> con2){
+//        con1.accept(name);
+//        con2.accept(name);
+    con1.andThen(con2).accept(name);//先con1消费，再con2消费
+}
+//定义一个方法，消费字符串数据
+private  static  void  operatorString(String name, Consumer<String> con){
+    con.accept(name);
+}
+```
+* Predicate接口
+* * 表示参数的谓词（布尔值函数）
+* * boolean Test(T t)方法
+```java
+public static void main(String[] args) {
+    boolean b1 = checkString("大狗子狗子", s-> s.length()>3);
+    System.out.println(b1);
+    boolean b2 = checkString("大大大狗子",s->s.length()>3,s->s.length()<6);
+    System.out.println(b2);
+}
+private  static boolean checkString(String s, Predicate<String> pre){
+//        return !pre.test(s);
+    return pre.test(s);
+}
+// 同一个字符串给出两个不同的判断条件，最后把这两个判断的结果做逻辑与运算的结果最为最终的结果
+private static boolean checkString(String s,Predicate<String> pre1,Predicate<String>pre2){
+    return pre1.and(pre2).test(s);
+}
+```
+* Function接口
+* * 表示接收一个参数，返回一个结果
+```java
+public static void main(String[] args) {
+    convert("199",s->Integer.parseInt(s));
+    convert(100,s->String.valueOf(s+66));
+    convert("20",s->Integer.parseInt(s),s->String.valueOf(s+100));
+}
+//定义一个方法，把字符串转为int类型，在控制台输出
+private  static void convert(String s, Function<String,Integer> fun){
+    int i = fun.apply(s);
+    System.out.println(i);
+}
+//定义一个方法，一个int类型的数据加上一个证书后，转为字符串输出
+private static void convert(int i,Function<Integer,String> fun){
+    String s = fun.apply(i);
+    System.out.println(s);
+}
+//定义一个方法，把字符串转换为int类型，把int类型的数据加上一个整数后，转为字符串在控制台输出
+private static void convert(String s,Function<String,Integer> fun1,Function<Integer,String> fun2){
+    String ss = fun1.andThen(fun2).apply(s);
+    System.out.println(ss);
+}
+```
+# Stream流
+list.stream().filter(s->s.startsWith("张)).filters(s-> s.length()==3).forEach(s->System.out.println(s));
+//判断字符串首字为"张"，且长度为3的字符串，并输出显示
+## Stream流的生成方式
+* 生成流
+* * Collection体系集合使用默认方法stream()生成
+* * Map体系的集合间接的生成流
+  Map<String,Integer> map = new HashMap<>();
+  Stream<String> keyStream = map.keySet().stream();//键生成流
+  Stream<Integer> valueStream = map.values().stream();//值生成流
+  Stream<MAp.Entry<String,Integer>> entryStream = map.entrySet().stream();//Entry生成流
+* * 数组可以通过Stream流接口的静态方法of(T values)生成流
+  Stream<String> strArrayStrram = Stream.of("hello","world","java");
+  Stream<Integet> intStrram = Stream.of(1,2,3,4,5);
+* 中间操作
+* * filter .filter(s->s.length()>3)
+* * limit  .limit(3)//限定流在前3个元素
+* * skip  .skip(3)//流跳过前三个元素
+* * concat(Stream a,Stream b):合并两个流为一个流，顺序先a后b
+* * distinct()：返回由该流的不同元素组成的流，根据equals完成比较
+* * sorted():返回由此流的元素组成的流，按照自然顺序排序
+* * sorted(Comparator compatrtor):返回由该流的元素组成的流，根据提供的Comparator进行排序
+* * map(Function mapper):返回由给定函数应用于此流的元素的结组成的流//转化流中元素类型
+* * mapToInt(ToIntFunction mapper):返回一个IntStream，其中包含将给定函数应用于此流的元素的结果//直接将流中的元素转化为int类型数组，便于后续操作（如求和）
+* 终结操作
+* * forEach():对流中每个元素进行操作
+* * count()返回此流的元素数
+#### Stream综合
+```java
+stream.map(Actor::new).forEach(System.out::println);
+```
+### Stream流的收集
+```java
+Collector toList()
+List<String> names = liststream.collect(Collectors.tolist());
+Collector toSet()
+Set<Integer> ages = setStream.collect(Collectors.toset());
+Collector toMap(key,vaule)
+Map<String,Integer> map = arrayStream.collect(Collectors.toMap(s->s.split(",")[0],s->s.split(",")[1]);
+```
+# 类加载器
+## 类加载
+当程序要使用某个类时，如果该类改为被加载到内存，则系统会通过类加载，类的连接，类的初始化这三个步骤来对类进行初始化。如果不出现意外情况，JVM将会连续完成这三个步骤，所以有时也把这三个步骤称为类加载或类的初始化。
+* 类的加载
+* * 就是指将class文件读入内存，并为之创建一个java.lang.Class对象
+* * 任何类被使用时，系统都会为之建立一个java.lang.Class对象
+* 类的连接
+* * 验证阶段：用于检验被加载的类是否有正确的内部结构，并和其他类协调一致
+* * 准备阶段：负责为类的类变量分配内存，并设置默认值
+* * 解析阶段：将类的二进制数据中的符号引用替换为直接引用
+## 反射
+### 反射概述
+Java反射机制：是指在运行时去获取一个类的变量和方法信息，然后通过获取到的信息来创建对象，调用方法的一种机制。由于这种动态性，可以极大的增强程序的灵活性，程序不用在编译期就完成确定，在运行期仍然可以扩展
+### 获取Class类的对象
+我们要通过反射去使用一个类，首先我们要获取到该类的字节码文件对象，也就是类型为Class类型的对象，一共有三种获取Class类型的对象方法：
+* 使用类的class属性来获取该类对应的Class对象。举例：Student.class将会返回Student类对应的Class对象
+* 调用对象的getClass()方法，返回该对象所属类对应的Class对象，该方法是Object类中的方法，所有的Java对象都可以调用该方法
+* 使用Class类中的静态方法forName(String className)，该方法需要传入字符参数，该字符串参数的值是某个类的全路径，也就是完整包名的路径
+```java
+public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+//获取class对象
+Class<?> c1 = Class.forName("com.company.反射.Student");
+
+//        Constructor<?>[] cons = c1.getConstructors();//获取类中public修饰的构造方法
+Constructor<?>[] cons = c1.getDeclaredConstructors();//获取类中所有的构造方法
+
+//        Constructor()参数：你要获取的构造方法的参数的个数和数据类型对应的字节码文件对象
+for(Constructor con:cons){
+    System.out.println(con);
+}
+Constructor<?> con = c1.getConstructor();//返回单个公共构造方法对象
+Object obj = con.newInstance();//反射，用于创建对象
+System.out.println(obj);
+}
+//*********** 反射获取构造方法并练习********************************
+Class<?> c = Class.forName("com.company.反射.Student");
+Constructor<?> con = c.getConstructor(String.class, int.class, String.class);
+Object obj = con.newInstance("大狗子", 30, "西安");
+System.out.println(obj);
+Constructor<?> con2 = c.getDeclaredConstructor(String.class);
+
+con2.setAccessible(true);//暴力反射，为true则取消访问检查
+Object obj2 = con2.newInstance("二狗子");
+System.out.println(obj2);
+//基本数据类型也可以通过.class得到对应的Class类型
+//注意暴力反射的使用方法
+```
+### 反射获取成员变量并使用
+```java
+Field[] fields = c.getFields();//获取public属性的成员变量
+Field[] fields1 = c.getDeclaredFields();//获取所有成员变量
+
+//给单个成员变量赋值，注意一般都要暴力反射
+Field addressField = c.getField("address");
+Field namefiled = c.getDeclaredField("name");
+Constructor<?> con = c.getConstructor();
+Object obj = con.newInstance();
+
+addressField.set(obj,"西安");//不是给对象赋值，而是给obj的成员变量赋值
+namefiled.setAccessible(true);
+namefiled.set(obj,"二狗子");
+```
+### 反射获取成员方法并使用
+```java
+Class<?> c = Class.forName("com.company.反射.Student");
+Constructor<?> con = c.getConstructor();
+Object obj = con.newInstance();
+
+Method[] method = c.getMethods();//返回所有claa对象的所有公共方法，包括类和接口声明的对象以及从超类和超级接口继承的类
+Method[] declaredMethods = c.getDeclaredMethods();//本类所有方法但不包含继承的方法
+
+Method m1 = c.getMethod("method1");
+Method m2 = c.getMethod("method2", String.class);
+Method m3 = c.getMethod("method3", String.class, int.class);
+m1.invoke(obj);//调用该对象的m1方法
+m2.invoke(obj,"大狗子");
+Object o = m3.invoke(obj,"大狗子今年",123);
+Method m4 = c.getDeclaredMethod("function");
+m4.setAccessible(true);
+m4.invoke(obj);
+```
+#### 练习：Integer集合中添加字符串数据
+ArrayList<Integer> array = new ArrayList<>();
+//首先到array集合的class下
+Class<? extends ArrayList> c = array.getClass();
+Method m = c.getMethod("add",Object.class);//是泛型，Object类型的，并没有明确在字节码文件中，任意类型的
+m.invoke(array,"hello");
+m.invoke(array,"world");
+m.invoke(array,"java");
+#### 通过配置文件运行类中的方法
+```java
+Properties prop = new Properties();
+FileReader fr = new FileReader("src/com/company/反射/class.txt");
+prop.load(fr);
+fr.close();
+String className = prop.getProperty("className");
+String methodName = prop.getProperty("methodName");
+//通过反射使用
+Class<?> c = Class.forName(className);
+Constructor<?> con = c.getConstructor();
+Object obj = con.newInstance();
+Method m = c.getMethod(methodName);
+m.invoke(obj);
+```
+# 模块化
+## 模块的基本使用
+* 创建模块（按照以前讲解方式创建模块、创建包、创建类，定义方法）
+  为了体现模块的使用，创建2个模块，一个是myOne，义格式myTwo
+* 在模块src目录下新建一个名为module-info.java的描述性文件，该文件专门定义模块名、访问权限，模块依赖等信息，描述性文件中使用模块导出和模块依赖来进行配置并使用
+* 模块中所有未导出的包都是模块私有的，它们是不能在模块外被访问的
+  在myOne这个模块下的描述文件中配置模块导出
+  即：exports 包名;
+* 一个模块要访问其他模块，必须明确指定依赖哪些模块，未明确指定以来的模块不能访问
+  在myTwo这个模块下的藐视性文件中配置模块依赖
+  模块依赖格式:requires 模块名;
+## 模块服务的使用
+**面向接口编程，服务实现类可以分布在不同的模块，服务实现模块则使用provides语句为服务接口指定实现类**
+模块服务的使用步骤
+* 在myOne模块下创建一个包com.it3，在该包下提供一个接口，接口中定义一个抽象方法
+```java
+public interface MySerive {
+    void service();
+}
+```
+* 在com.it3包下创建一个包impl，在该包下提供接口的两个实现类itmet和Czxy
+* 在myOne模块下的藐视文件中添加配置
+* 在myTwo这个模块的描述性文件中添加如下配置
+* 声明服务接口 ：uses MyService
+* 在myTwo这个模块的类中使用MyService接口提供的服务
+  ServiceLoader：一种加载服务实现的工具
