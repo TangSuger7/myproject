@@ -1,0 +1,23 @@
+# arguments for dataset
+dataset: coco
+data_root: /home/notebook/code/personal/80410839/Dataset/SPLIT
+nclass: 2
+crop_size: 518
+
+# arguments for training
+epochs: 20
+batch_size: 4 # per GPU x 4 GPUs
+lr: 0.000005
+lr_multi: 40.0
+criterion:
+  name: OHEM
+  kwargs:
+    ignore_index: 255
+    thresh: 0.7
+    min_kept: 200000
+conf_thresh: 0.95
+
+# arguments for model
+model: dpt
+backbone: dinov2_small
+lock_backbone: False
